@@ -3,6 +3,7 @@ import axios from "axios";
 // Axios 인스턴스 생성
 const API = axios.create({
   baseURL: "http://localhost:8080",
+  withCredentials: true, // ✅ 쿠키 및 인증정보 포함
   headers: {
     "Content-Type": "application/json",
   },
