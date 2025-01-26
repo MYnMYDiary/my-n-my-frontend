@@ -19,3 +19,12 @@
     box-sizing: border-box;
     padding: 25px 40px;
 }
+
+.authLayout{
+    /* 가로, 세로 중앙 정렬 */
+    display: grid;
+    place-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: #fdcfda;
+}
