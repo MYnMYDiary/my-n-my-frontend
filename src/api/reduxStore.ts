@@ -1,4 +1,5 @@
 import postReducer from '@/features/posts/postSlice';
+import spaceReducer from '@/features/spaceSlice';
 // redux/store.ts
 import { configureStore } from "@reduxjs/toolkit";
 
@@ -6,6 +7,7 @@ export const makeStore = () => {
   return configureStore({
     reducer: {
       post: postReducer,
+      spaces: spaceReducer
     },
     devTools: process.env.NODE_ENV !== "production", // 개발 환경에서만 활성화
   });

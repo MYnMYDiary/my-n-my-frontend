@@ -1,3 +1,5 @@
+'use client';
+
 // redux/hooks.ts
 import { AppDispatch, RootState } from "@/api/reduxStore";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
