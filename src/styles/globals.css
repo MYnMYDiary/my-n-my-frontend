@@ -8,7 +8,7 @@
 }
 
 /* 사용자의 OS가 다크모드일 때 */
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #353434;
     --foreground: #ededed;
@@ -16,7 +16,7 @@
     --background-diary: #353434;
     --foreground-diary: #ededed;
   }
-}
+} */
 
 html,
 body {
@@ -49,11 +49,11 @@ input:focus-visible {
   outline: none;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
   }
-}
+} */
 
 @font-face {
   font-family: 'Cafe24Ssurround';
