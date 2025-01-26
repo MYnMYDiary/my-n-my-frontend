@@ -2,11 +2,13 @@ import { Space } from "@/constants/name.const";
 import { createSlice } from "@reduxjs/toolkit"
 
 interface SpaceType {
-    spaceName: string
+    spaceName: string;
+    category: string;
 }
 
 const initialState:SpaceType = {
-    spaceName: ''
+    spaceName: '',
+    category: 'Home'
 }
 
 const spaceSlice = createSlice({
@@ -15,9 +17,12 @@ const spaceSlice = createSlice({
     reducers:{
         setSpace: (state, action) => {
             state.spaceName = action.payload;
+        },
+        setCategory: (state, action) => {
+            state.category = action.payload;
         }
     }
 });
 
-export const { setSpace } = spaceSlice.actions;
+export const { setSpace, setCategory } = spaceSlice.actions;
 export default spaceSlice.reducer;
