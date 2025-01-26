@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import "./styles/globals.css";
 import ReduxProvider from "@/api/providers/ReduxProvider";
 import ReactQueryProvider from "@/api/providers/ReactQueryProvider";
+import Head from "next/head";
 
 
 
@@ -14,6 +15,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
         <html>
+          <Head>
+            <link rel="icon" href="/favicon.ico" />
+          </Head>
           <body>
             <ReduxProvider>
               <ReactQueryProvider>
