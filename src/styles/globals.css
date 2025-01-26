@@ -49,6 +49,11 @@ input:focus-visible {
   outline: none;
 }
 
+button{
+  cursor: pointer;
+  border: none;
+}
+
 /* @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;

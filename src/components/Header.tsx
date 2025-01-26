@@ -4,6 +4,7 @@ import { Space } from '@/constants/name.const'
 import { setSpace } from '@/features/spaceSlice';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux/hooks'
 import styles from '@/styles/header.module.css'
+import { useRouter } from 'next/navigation';
 import { IoIosArrowDown } from 'react-icons/io'
 import { IoSearchOutline } from 'react-icons/io5'
 
@@ -15,6 +16,7 @@ const space = [
 
 export default function Header(){
 
+    const router = useRouter();
     const dispach = useAppDispatch();
     const spaceName = useAppSelector((state) => state.spaces.spaceName);
 
@@ -41,7 +43,7 @@ export default function Header(){
         </div>
 
         <div className={styles.sub_category}>
-            <p>로그인</p>
+            <p onClick={() => router.push('/auth/login')}>로그인</p>
             <p>회원가입</p>
             <p>고객센터</p>
         </div>
