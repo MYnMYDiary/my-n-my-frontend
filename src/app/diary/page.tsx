@@ -12,11 +12,11 @@ export default function DiaryPage() {
   if (error) return <p>Error loading posts</p>;
 
     return(
-      <>
+      <div>
         <h2>다이어리 화면</h2>
         {diarys.map((diary:Diary) => (
           <p key={diary.id} >{diary.title}</p>
         ))}
-      </>
+      </div>
     )
   }

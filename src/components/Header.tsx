@@ -2,7 +2,7 @@
 
 import { Space } from '@/constants/name.const'
 import { setSpace } from '@/features/spaceSlice';
-import { dispach, useAppDispatch, useAppSelector } from '@/hooks/redux/hooks'
+import { useAppDispatch, useAppSelector } from '@/hooks/redux/hooks'
 import styles from '@/styles/header.module.css'
 import { IoIosArrowDown } from 'react-icons/io'
 import { IoSearchOutline } from 'react-icons/io5'
@@ -17,9 +17,6 @@ export default function Header(){
 
     const dispach = useAppDispatch();
     const spaceName = useAppSelector((state) => state.spaces.spaceName);
-
-
-
 
     return(
         <div className={styles.headerBox}>

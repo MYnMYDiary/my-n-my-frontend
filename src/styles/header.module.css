@@ -21,14 +21,20 @@
 }
 
 .main_category h3 {
-    color: white;
+    color: #ecbac6;
     font-size: 28px;
     font-weight: bold;
     width: 72px;
     cursor: pointer;
 }
 
+.main_category h3:hover{
+    font-size: 30px;
+    color: #f26689;
+}
+
 .main_category .selected {
+    font-size: 30px;
     color: #f26689;
 }
 

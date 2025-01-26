@@ -1,9 +1,0 @@
-.frame{
-    display: flex;
-    flex-direction: column;
-    width: 85vw;
-    height: 100vh;
-    background-color: var(--background-diary);
-    color: var(--foreground-diary);
-    margin: 25px 0px;
-}
