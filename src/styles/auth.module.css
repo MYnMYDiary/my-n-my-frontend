@@ -1,4 +1,4 @@
-.login_box{
+.auth_box{
     width: 500px;
     height: 800px;
     display: flex;
@@ -9,7 +9,7 @@
     justify-content: center;
 }
 
-.login_box img{
+.auth_box img{
     width: 130px;
     cursor: pointer;
 }
@@ -79,4 +79,49 @@
 .desc{
     font-size: 12px;
     color: gray;
+}
+
+.join{
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+    justify-content: space-around;
+    margin: 35px 0px;
+}
+
+.join_input{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    height: 45px;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid lightgray;
+    border-radius: 8px;
+}
+
+.join_input input {
+    border: none;
+    width: 85%;
+}
+
+.btnAuth{
+    background-color: #f26689;
+    color: white;
+    height: 35px;
+    border-radius: 8px;
+}
+
+.btnSave{
+    background-color: #f26689;
+    color: white;
+    height: 35px;
+    border-radius: 8px;
+    width: 300px;
+}
+
+.btnSave:hover{
+    background-color: white;
+    border: 1px solid #f26689;
+    color: #f26689;
 }

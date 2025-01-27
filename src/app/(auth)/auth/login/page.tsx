@@ -22,7 +22,7 @@ export default function Login() {
 
 
     return(
-        <div className={style.login_box}>
+        <div className={style.auth_box}>
             <img src='/mynmyLogo_v4.png' onClick={() => router.push('/')}/>
             
             <div className={style.login}>
@@ -39,7 +39,7 @@ export default function Login() {
 
             <div className={style.option_box}>
                 <p>비밀번호 재설정</p>
-                <p>회원가입</p>
+                <p onClick={() => router.push('/auth/join')}>회원가입</p>
             </div>
 
             <p className={style.desc}>SNS 계정으로 간편하게 로그인 / 회원가입</p>
