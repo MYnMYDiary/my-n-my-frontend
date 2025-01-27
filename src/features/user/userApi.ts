@@ -24,9 +24,9 @@ export function useLoginWithEmail () {
         onSuccess: (data) => {
             console.log("성공적으로 전송됨:", data);
         },
-        onError: (error) => {
+        onError: (error : any) => {
             console.error("에러 발생:", error);
-            console.log(error.response.data.message);
+            console.log(error?.response?.data?.message);
         },       
     })
     const login = (email:string, password:string) => {
