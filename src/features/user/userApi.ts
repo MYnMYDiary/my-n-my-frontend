@@ -10,8 +10,7 @@ export interface UserType {
 const postLoginEmail = async ({email, password}:UserType) => {
     const { data } = await API.post(
         '/auth/login/email',
-        {user: {email,password}},
-        {withCredentials: true}, //CORS
+        {user: {email,password}}
     );
     console.log(data);
     return data;

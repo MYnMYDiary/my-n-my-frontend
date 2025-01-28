@@ -125,3 +125,8 @@
     border: 1px solid #f26689;
     color: #f26689;
 }
+
+.confirmMessage{
+    font-size: 10px;
+    color: red;
+}
