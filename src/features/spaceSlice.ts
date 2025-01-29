@@ -1,4 +1,3 @@
-import { Space } from "@/constants/name.const";
 import { createSlice } from "@reduxjs/toolkit"
 
 interface SpaceType {

@@ -1,6 +1,6 @@
 'use client';
 
-import { useLoginWithEmail } from '@/features/\buser/userApi';
+import { useLoginWithEmail } from '@/features/user/userApi';
 import style from '@/styles/auth.module.css'
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';

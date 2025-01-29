@@ -28,6 +28,17 @@ const verityEmail = async ({email, code}:Pick<AuthInfoType,'email'|'code'>) => {
     return data;
 }
 
+// refreshToken 재발급 API
+export const getNewRefreshToken = async () => {
+    const refreshToken = localStorage.getItem('refreshToken');
+    const {data} = await API.post(
+        '/auth/token/refresh',
+        {}, // Body 필요없음
+        {headers: {'Authorization': `Bearer ${refreshToken}`}}
+    )
+    return {data};
+}
+
 const joinWithEmail = async ({email, password, nickname}:Pick<AuthInfoType,'email'|'password'|'nickname'>) => {
     const {data} = await API.post(
         '/auth/join/email',
