@@ -12,7 +12,10 @@ const postLoginEmail = async ({email, password}:UserType) => {
         '/auth/login/email',
         {user: {email,password}}
     );
-    console.log(data);
+    
+    // ✅ 로그인 성공 시 Access Token 저장
+    localStorage.setItem("accessToken", data.accessToken);
+    
     return data;
 }
 
