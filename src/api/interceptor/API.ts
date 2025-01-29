@@ -1,3 +1,4 @@
+import { getNewRefreshToken } from "@/features/auth/authApi";
 import axios from "axios";
 
 // Axios 인스턴스 생성
@@ -29,26 +30,24 @@ API.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
     
-    // ❌ 401 오류 (토큰 만료 시) → Refresh Token으로 Access Token 갱신
+    // ❌ accessToken 만료 → Refresh Token으로 Access Token 갱신
     if (error.response?.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
+        originalRequest._retry = true; // 무한 루프 방지
       try {
         console.log("🔄 Access Token 갱신 중...");
         
-        // Refresh Token을 사용하여 새 Access Token 요청
-        const res = await axios.post("http://localhost:8080/auth/refresh", {}, { withCredentials: true });
-
         // 새 Access Token 저장
-        const newToken = res.data.accessToken;
-        localStorage.setItem("accessToken", newToken);
+        const newAccessToken = getNewRefreshToken();
 
-        // 기존 요청 헤더 업데이트 후 재요청
-        originalRequest.headers.Authorization = `Bearer ${newToken}`;
-        return API(originalRequest);
+        if (newAccessToken) {
+          originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+          return API(originalRequest); // 새로운 accessToken으로 요청 재시도
+        }
+
       } catch (err) {
         console.error("🚨 토큰 갱신 실패, 로그인 페이지로 이동");
         localStorage.removeItem("accessToken"); // 토큰 삭제
-        window.location.href = "/login"; // 로그인 페이지로 이동
+        //window.location.href = "/login"; // 로그인 페이지로 이동
         return Promise.reject(err);
       }
     }

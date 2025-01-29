@@ -5,6 +5,7 @@ import { setSpace } from '@/features/spaceSlice';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux/hooks'
 import styles from '@/styles/header.module.css'
 import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { IoIosArrowDown } from 'react-icons/io'
 import { IoSearchOutline } from 'react-icons/io5'
 
@@ -20,13 +21,25 @@ export default function Header(){
     const dispach = useAppDispatch();
     const spaceName = useAppSelector((state) => state.spaces.spaceName);
 
+    const [hydrated, setHydrated] = useState(false);
+
+    // 클라이언트에서만 실행되도록 설정
+    useEffect(() => {
+        setHydrated(true);
+    }, []);
+
+    if (!hydrated) return null; // Hydration 문제를 방지하기 위해 서버 렌더링을 방지
+
+
     return(
         <div className={styles.headerBox}>
 
         <img src='/mynmyLogo_v1.png'/>
         
         <div className={styles.main_category}>
-            {space.map( s => (
+            {space.map( s => {
+                console.log(s.name);
+                return(
                 <h3 
                     className={spaceName == s.name ? styles.selected : ''} 
                     key={s.id}
@@ -34,7 +47,8 @@ export default function Header(){
                 >
                     {s.name}
                 </h3>
-            ))}
+            )}
+            )}
         </div>
 
         <div className={styles.searchBox}>

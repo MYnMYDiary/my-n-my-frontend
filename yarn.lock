@@ -317,6 +317,7 @@ __metadata:
     react-icons: "npm:^5.4.0"
     react-redux: "npm:^9.2.0"
     redux-devtools-extension: "npm:^2.13.9"
+    redux-persist: "npm:^6.0.0"
     typescript: "npm:^5"
   languageName: unknown
   linkType: soft
@@ -532,6 +533,15 @@ __metadata:
   peerDependencies:
     redux: ^3.1.0 || ^4.0.0
   checksum: 10c0/753611d40c5d8fd00af985a07122ab922ad8ec48ae617b6ed58594af08c8efaf54024a76da8f5293f9394002da977604da10e828d13f0e419c95d9edccf5c50a
+  languageName: node
+  linkType: hard
+
+"redux-persist@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "redux-persist@npm:6.0.0"
+  peerDependencies:
+    redux: ">4.0.0"
+  checksum: 10c0/8242d265ab8d28bbc95cf2dc2a05b869eb67aa309b1ed08163c926f3af56dd8eb1ea62118286083461b8ef2024d3b349fd264e5a62a70eb2e74d068c832d5bf2
   languageName: node
   linkType: hard
 
