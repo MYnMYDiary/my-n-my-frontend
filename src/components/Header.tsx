@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from '@/hooks/redux/hooks'
 import styles from '@/styles/header.module.css'
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { FaPencil } from 'react-icons/fa6';
 import { IoIosArrowDown } from 'react-icons/io'
 import { IoSearchOutline } from 'react-icons/io5'
 
@@ -34,7 +35,7 @@ export default function Header(){
     return(
         <div className={styles.headerBox}>
 
-        <img src='/mynmyLogo_v1.png'/>
+        <img src='/mynmyLogo_v1.png' onClick={() => router.push('/')}/>
         
         <div className={styles.main_category}>
             {space.map( s => {
@@ -58,13 +59,13 @@ export default function Header(){
 
         <div className={styles.sub_category}>
             <p onClick={() => router.push('/auth/login')}>로그인</p>
-            <p>회원가입</p>
+            <p onClick={() => router.push('/auth/join')}>회원가입</p>
             <p>고객센터</p>
         </div>
         
-        <div className={styles.writeButton}>
+        <div className={styles.writeButton} onClick={() => router.push('/createDiary')}>
             <p>다이어리 쓰기</p>
-            <IoIosArrowDown size={20} color='#white' />
+            <FaPencil size={18} color='#white' />
         </div>
       </div>
     )

@@ -1,7 +1,10 @@
 import { getNewRefreshToken } from "@/features/auth/authApi";
 import axios from "axios";
 
-// Axios 인스턴스 생성
+
+/**
+ * Axios 인스턴스 생성
+ */
 const API = axios.create({
   baseURL: "http://localhost:8080",
   withCredentials: true, // 쿠키 및 인증정보 포함
@@ -11,7 +14,11 @@ const API = axios.create({
   timeout: 5000, // 5초 타임아웃 설정
 });
 
-// 요청 인터셉터 (Request Interceptor)
+
+
+/**
+ * 요청 인터셉터 (Request Interceptor)
+ */
 API.interceptors.request.use(
   // Access Token 자동 추가)
   (config) => {
@@ -24,7 +31,12 @@ API.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// 응답 인터셉터 (Response Interceptor)
+
+
+
+/**
+ * 응답 인터셉터 (Response Interceptor)
+ */
 API.interceptors.response.use(
   (response) => response,
   async (error) => {

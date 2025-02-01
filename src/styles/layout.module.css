@@ -8,6 +8,27 @@
     margin: 25px 0px;
 }
 
+.authLayout{
+    /* 가로, 세로 중앙 정렬 */
+    display: grid;
+    place-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: #fdcfda;
+}
+
+.diaryLayout{
+    display: flex;
+    flex-direction: column;
+    width: 85vw;
+    height: 100vh;
+    background-color: var(--background-diary);
+    color: var(--foreground-diary);
+    margin: 25px 0px;
+}
+
+
+
 .page_frame{
     border-top: 1px solid #ffb7c9;
     border-bottom: 1px solid #ffb7c9;
@@ -20,11 +41,11 @@
     padding: 25px 40px;
 }
 
-.authLayout{
+.diary_frame{
     /* 가로, 세로 중앙 정렬 */
     display: grid;
     place-items: center;
-    width: 100vw;
-    height: 100vh;
-    background-color: #fdcfda;
+    width: 100%;
+    height: fit-content;
+    padding: 30px 50px;
 }
