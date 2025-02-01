@@ -49,6 +49,9 @@ input:focus-visible {
   outline: none;
 }
 
+textarea { resize: none; }
+textarea:focus-visible {outline: none;}
+
 button{
   cursor: pointer;
   border: none;
