@@ -1,7 +1,7 @@
 'use client';
 
 import { AuthInfoType, useJoinWithEmail, useSendAuthEmail, useVerityEmail } from '@/features/auth/authApi';
-import style from '@/styles/auth.module.css'
+import style from '@styles/css/auth.module.css'
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
