@@ -2,7 +2,7 @@
 
 import { setCategory } from '@/features/spaceSlice';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux/hooks';
-import style from '@/styles/category.module.css'
+import style from '@styles/css/category.module.css'
 import { useEffect, useState } from 'react';
 
 const category = [

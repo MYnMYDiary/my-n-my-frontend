@@ -1,5 +1,5 @@
 import styles from "./page.module.css";
-import layoutstyle from "@/styles/layout.module.css"
+import layoutstyle from "@styles/css/layout.module.css"
 
 export default function Home() {
   return (

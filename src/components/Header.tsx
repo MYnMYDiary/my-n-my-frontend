@@ -3,7 +3,7 @@
 import { Space } from '@/constants/name.const'
 import { setSpace } from '@/features/spaceSlice';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux/hooks'
-import styles from '@/styles/header.module.css'
+import styles from '@styles/css/header.module.css'
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { FaPencil } from 'react-icons/fa6';

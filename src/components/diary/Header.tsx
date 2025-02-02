@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react'
-import styles from '@/styles/diary/header.module.css'
+import styles from '@styles/css/diary/header.module.css'
 import { usePathname, useRouter } from 'next/navigation';
 
 export default function Header() {

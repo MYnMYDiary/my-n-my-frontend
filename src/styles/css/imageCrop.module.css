@@ -1,0 +1,20 @@
+.cropContainer{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+}
+
+.cropSaveBtn{
+    position: absolute;
+    top: 10%;
+    right: 5%;
+    width: 150px;
+    height: 60px;
+    color: white;
+    background-color: pink;
+    border-radius: 8px;
+    font-size: 20px;
+}

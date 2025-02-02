@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
-import "@/styles/globals.css";
-import layoutStyle from '@/styles/layout.module.css'
+import "@styles/css/globals.css";
+import layoutStyle from '@styles/css/layout.module.css'
 import ReduxProvider from "@/api/providers/ReduxProvider";
 import ReactQueryProvider from "@/api/providers/ReactQueryProvider";
-import Header from "@/components/Header";
-import CategoryBar from "@/components/CategoryBar";
+
 
 export const metadata: Metadata = {
   title: "다이어리 꾸밀 때, 마이앤마이",
