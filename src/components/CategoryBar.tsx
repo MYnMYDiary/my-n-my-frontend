@@ -16,7 +16,7 @@ const category = [
 export default function CategoryBar() {
 
         const dispach = useAppDispatch();
-        const categoryName = useAppSelector((state) => state.spaces.category);
+        const categoryName = useAppSelector((state) => state.space.category);
 
         const [hydrated, setHydrated] = useState(false);
 

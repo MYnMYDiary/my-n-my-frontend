@@ -355,6 +355,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/next-redux-wrapper@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "@types/next-redux-wrapper@npm:3.0.0"
+  dependencies:
+    next-redux-wrapper: "npm:*"
+  checksum: 10c0/ed4b9f7229af263e81124d940d38a07296c33a245c15e379e4be1360e55b821e8bc92d4a941772088cccd918f0fa7599cda6becd1e4639b76d67ba11a797f94b
+  languageName: node
+  linkType: hard
+
 "@types/node@npm:^20":
   version: 20.17.16
   resolution: "@types/node@npm:20.17.16"
@@ -552,6 +561,7 @@ __metadata:
     "@reduxjs/toolkit": "npm:^2.5.0"
     "@tanstack/react-query": "npm:^5.64.2"
     "@tanstack/react-query-devtools": "npm:^5.64.2"
+    "@types/next-redux-wrapper": "npm:^3.0.0"
     "@types/node": "npm:^20"
     "@types/react": "npm:^19"
     "@types/react-dom": "npm:^19"
@@ -559,6 +569,7 @@ __metadata:
     axios: "npm:^1.7.9"
     babel-plugin-styled-components: "npm:^2.1.4"
     next: "npm:14"
+    next-redux-wrapper: "npm:^8.1.0"
     react: "npm:^18"
     react-dom: "npm:18"
     react-easy-crop: "npm:^5.2.0"
@@ -664,6 +675,17 @@ __metadata:
   bin:
     nanoid: bin/nanoid.cjs
   checksum: 10c0/4b1bb29f6cfebf3be3bc4ad1f1296fb0a10a3043a79f34fbffe75d1621b4318319211cd420549459018ea3592f0d2f159247a6f874911d6d26eaaadda2478120
+  languageName: node
+  linkType: hard
+
+"next-redux-wrapper@npm:*, next-redux-wrapper@npm:^8.1.0":
+  version: 8.1.0
+  resolution: "next-redux-wrapper@npm:8.1.0"
+  peerDependencies:
+    next: ">=9"
+    react: "*"
+    react-redux: "*"
+  checksum: 10c0/15e1dce4255b48bd92c9f0112c3d557cee2b3d149c246bac3a4ece15e6c83e843299f2fe2c10f10ee41abd7a4462cff6ac7f29377533dfbdb955f3bdad226d10
   languageName: node
   linkType: hard
 

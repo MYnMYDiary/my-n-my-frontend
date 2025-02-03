@@ -1,8 +1,10 @@
+"use client";
+
 import API from "@/api/interceptor/API"
-import { useAppDispatch, useAppSelector } from "@/hooks/redux/hooks";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { setIsLogin } from "./userSlice";
 import { useRouter } from "next/navigation";
+import { useAppDispatch } from "@/hooks/redux/hooks";
 
 export interface UserType {
     email: string;
@@ -10,39 +12,43 @@ export interface UserType {
 }
 
 // API 호출
-const postLoginEmail = async ({email, password}:UserType) => {
+const loginwithEmail = async ({email, password}:UserType) => {
     const { data } = await API.post(
         '/auth/login/email',
         {user: {email,password}}
     );
+    return data;
+}
 
-    // ✅ 로그인 성공 시 Access Token 저장
-    localStorage.setItem("accessToken", data.accessToken);
-    
+export const logoutApi = async () => {
+    const { data } = await API.post(
+        '/auth/logout'
+    );
     return data;
 }
 
 // React Query 훅
 export function useLoginWithEmail () {
-
-    const dispach = useAppDispatch(); //Redux
+    const queryClient = useQueryClient(); 
+    const dispatch = useAppDispatch(); 
     const router = useRouter();
 
+    const login = (email:string, password:string) => {
+        mutation.mutate({email, password});
+    }
+
     const mutation = useMutation({
-        mutationFn: postLoginEmail,
-        onSuccess: (data) => {
-            console.log("성공적으로 전송됨:", data);
-            dispach(setIsLogin(true)); //로그인 상태 true
-            router.push('/') // 페이지 이동
+        mutationFn: loginwithEmail,
+        onSuccess: async(data) => {
+            queryClient.setQueryData(['accessToken'], data.accessToken); // React Query에서 관리
+            dispatch(setIsLogin(true));
+            await router.push('/') // 페이지 이동
         },
         onError: (error : any) => {
             console.error("에러 발생:", error);
             console.log(error?.response?.data?.message);
         },       
     })
-    const login = (email:string, password:string) => {
-        mutation.mutate({email, password});
-    }
 
     return {login}
 };

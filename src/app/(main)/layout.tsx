@@ -16,20 +16,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-        <html lang="ko">
-          <body>
-            <ReduxProvider>
-              <ReactQueryProvider>
-                <StyledComponentsRegistry>
-                  <div className={style.mainLayout}>
-                    <Header/>
-                    <CategoryBar/>
-                    {children}
-                  </div>
-                </StyledComponentsRegistry>
-              </ReactQueryProvider>
-          </ReduxProvider>
-          </body>
-        </html>
+    <div className={style.mainLayout}>
+      <Header/>
+      <CategoryBar/>
+      {children}
+    </div>
   );
 }
