@@ -14,16 +14,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ko">
-      <body>
-        <ReduxProvider>
-          <ReactQueryProvider>
-            <div className={layoutStyle.authLayout}>
-              {children}
-            </div>
-          </ReactQueryProvider>
-        </ReduxProvider>
-      </body>
-    </html>
+    <div className={layoutStyle.authLayout}>
+      {children}
+    </div>
   );
 }

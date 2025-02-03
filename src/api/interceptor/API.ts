@@ -1,4 +1,5 @@
-import { getNewRefreshToken } from "@/features/auth/authApi";
+import { getNewAccessToken } from "@/features/auth/authApi";
+import { QueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
 
@@ -7,14 +8,14 @@ import axios from "axios";
  */
 const API = axios.create({
   baseURL: "http://localhost:8080",
-  withCredentials: true, // 쿠키 및 인증정보 포함
+  withCredentials: true, // 쿠키 및 인증정보 포함(refreshToken)
   headers: {
     "Content-Type": "application/json",
   },
   timeout: 5000, // 5초 타임아웃 설정
 });
 
-
+const queryClient = new QueryClient();
 
 /**
  * 요청 인터셉터 (Request Interceptor)
@@ -22,9 +23,11 @@ const API = axios.create({
 API.interceptors.request.use(
   // Access Token 자동 추가)
   (config) => {
-    const token = localStorage.getItem("accessToken");
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+    const accessToken = queryClient.getQueryData<string>(['accessToken']);
+    console.log(accessToken);
+    
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
     }
     return config;
   },
@@ -49,7 +52,7 @@ API.interceptors.response.use(
         console.log("🔄 Access Token 갱신 중...");
         
         // 새 Access Token 저장
-        const newAccessToken = getNewRefreshToken();
+        const newAccessToken = await getNewAccessToken();
 
         if (newAccessToken) {
           originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
@@ -58,7 +61,6 @@ API.interceptors.response.use(
 
       } catch (err) {
         console.error("🚨 토큰 갱신 실패, 로그인 페이지로 이동");
-        localStorage.removeItem("accessToken"); // 토큰 삭제
         //window.location.href = "/login"; // 로그인 페이지로 이동
         return Promise.reject(err);
       }

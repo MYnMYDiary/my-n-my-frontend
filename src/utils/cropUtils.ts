@@ -1,3 +1,5 @@
+'use client';
+
 export const getCroppedImg = (imageSrc: string, croppedAreaPixels: { x: number; y: number; width: number; height: number }): Promise<string> => {
     return new Promise((resolve, reject) => {
       const image = new Image();

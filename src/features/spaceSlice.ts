@@ -23,5 +23,7 @@ const spaceSlice = createSlice({
     }
 });
 
+
+
 export const { setSpace, setCategory } = spaceSlice.actions;
 export default spaceSlice.reducer;

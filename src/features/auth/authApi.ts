@@ -10,6 +10,12 @@ export interface AuthInfoType{
     code: string
 }
 
+// 🚀 로그아웃 함수
+const logout = () => {
+    document.cookie = 'refreshToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'; // RefreshToken 삭제
+    localStorage.removeItem('accessToken'); // AccessToken 삭제
+};
+
 // 이메일로 인증번호를 발송하는 API 호출 함수
 const sendAuthEmail = async ({email}:Pick<AuthInfoType,'email'>) => {
     const {data} = await API.post(
@@ -28,15 +34,18 @@ const verityEmail = async ({email, code}:Pick<AuthInfoType,'email'|'code'>) => {
     return data;
 }
 
-// refreshToken 재발급 API
-export const getNewRefreshToken = async () => {
-    const refreshToken = localStorage.getItem('refreshToken');
-    const {data} = await API.post(
-        '/auth/token/refresh',
-        {}, // Body 필요없음
-        {headers: {'Authorization': `Bearer ${refreshToken}`}}
-    )
-    return {data};
+// accessToken 재발급 API
+export const getNewAccessToken = async () => {
+    try {
+        const {data} = await API.post('/auth/token/access',{}) // Body 필요없음
+        return {data};       
+    } catch (error: any) {
+        if (error.response?.status === 401) {
+            alert('로그인이 만료되었습니다. 다시 로그인해주세요.');
+            // logout(); // 로그아웃 함수 호출
+        }
+        throw error;
+    }
 }
 
 const joinWithEmail = async ({email, password, nickname}:Pick<AuthInfoType,'email'|'password'|'nickname'>) => {
@@ -66,6 +75,10 @@ export function useSendAuthEmail() {
     return {sendEmail};
 }
 
+/**
+ * 인증번호 확인
+ * @returns 
+ */
 export function useVerityEmail() {
     const [isSuccess, setIsSuccess] = useState<boolean>();
 
