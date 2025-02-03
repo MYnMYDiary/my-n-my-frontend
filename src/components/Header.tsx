@@ -13,7 +13,7 @@ import { useState, useEffect } from 'react';
 const space = [
     { id: 0, name: Space.COMMUNITY },
     { id: 1, name: Space.SHOPPING },
-    { id: 2, name: Space.ARTIST },  // ✅ 오타 수정
+    { id: 2, name: Space.ARITST },  // ✅ 오타 수정
 ];
 
 export default function Header() {
@@ -23,9 +23,17 @@ export default function Header() {
     const isLogin = useAppSelector((state) => state.user.isLogin);
     const { logout } = useLogout();
 
+    const handleWriteDiary = () => {
+        if(!isLogin){
+            router.push('/auth/login')
+        }else{
+            router.push('/createDiary')
+        }
+    }
+
     return (
         <div className={styles.headerBox}>
-            <img src='/mynmyLogo_v1.png' onClick={() => router && router.push('/')} />
+            <img src='/mynmyLogo_v1.png' onClick={() => router.push('/')} />
 
             <div className={styles.main_category}>
                 {space.map((s) => (
@@ -58,7 +66,7 @@ export default function Header() {
                 </div>
             )}
 
-            <div className={styles.writeButton} onClick={() => router && router.push('/createDiary')}>
+            <div className={styles.writeButton} onClick={handleWriteDiary}>
                 <p>다이어리 쓰기</p>
                 <FaPencil size={18} color='#fff' />
             </div>
