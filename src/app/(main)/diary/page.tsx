@@ -14,8 +14,8 @@ export default function DiaryPage() {
     return(
       <div>
         <h2>다이어리 화면</h2>
-        {diarys.map((diary:Diary) => (
-          <p key={diary.id} >{diary.title}</p>
+        {diarys?.map((diary:Diary, index:number) => (
+          <p key={index} >{diary.title}</p>
         ))}
       </div>
     )

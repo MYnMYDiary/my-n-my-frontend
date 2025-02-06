@@ -8,13 +8,13 @@ import { Area } from "react-easy-crop"; // ✅ Area 타입 임포트
 
 /**
  * 이미지 크롭하는 커스텀 훅
+ * @property 
  */
 export const useImageCrop = () => {
 
   // 이미지 입력받기
   const fileInputRef = useRef<HTMLInputElement>(null); // 파일 입력 필드 참조
   const [imageUrl, setImageUrl] = useState<string>('')
-
   const [crop, setCrop] = useState({ x: 0, y: 0 }); // 현재 이미지 크롭 상태 (x, y 좌표)
   const [zoom, setZoom] = useState(1); // 줌 상태 (1은 기본 크기)
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null); // 픽셀 단위의 크롭 영역 정보를 저장하는 상태 (초기값 null)
@@ -72,7 +72,6 @@ export const useImageCrop = () => {
   };
 
   return {
-    data: {
       imageUrl,
       fileInputRef,
       crop,
@@ -87,6 +86,5 @@ export const useImageCrop = () => {
       onCropComplete,
       handleCropConfirm,
       setImageUrl
-    }
-  };
+    };
 };

@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 export interface Diary {
   id: number;
   title: string;
+  image: string;
   content: string;
   createdAt: string;
 }
@@ -23,3 +24,5 @@ export function useGetAllDiarys (){
     staleTime: 1000 * 60 * 5, // 5분 캐싱
   });
 };
+
+

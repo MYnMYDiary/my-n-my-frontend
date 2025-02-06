@@ -29,7 +29,6 @@ export const logoutApi = async () => {
 
 // React Query 훅
 export function useLoginWithEmail () {
-    const queryClient = useQueryClient(); 
     const dispatch = useAppDispatch(); 
     const router = useRouter();
 
@@ -40,7 +39,7 @@ export function useLoginWithEmail () {
     const mutation = useMutation({
         mutationFn: loginwithEmail,
         onSuccess: async(data) => {
-            queryClient.setQueryData(['accessToken'], data.accessToken); // React Query에서 관리
+            localStorage.setItem('accessToken', data.accessToken)
             dispatch(setIsLogin(true));
             await router.push('/') // 페이지 이동
         },

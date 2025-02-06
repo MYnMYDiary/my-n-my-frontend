@@ -1,7 +1,9 @@
 import API from "@/api/interceptor/API"
+import { store } from "@/providers/reduxStore";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { ThunkDispatch } from "@reduxjs/toolkit";
 
 export interface AuthInfoType{
     email: string,
@@ -36,13 +38,17 @@ const verityEmail = async ({email, code}:Pick<AuthInfoType,'email'|'code'>) => {
 
 // accessToken 재발급 API
 export const getNewAccessToken = async () => {
+    
+    const dispatch = store?.dispatch as ThunkDispatch<any, any, any>; // dispatch 타입 캐스팅
+
     try {
         const {data} = await API.post('/auth/token/access',{}) // Body 필요없음
-        return {data};       
-    } catch (error: any) {
+        return data;       
+    } 
+    catch (error: any) {
         if (error.response?.status === 401) {
+            dispatch(logout());
             alert('로그인이 만료되었습니다. 다시 로그인해주세요.');
-            // logout(); // 로그아웃 함수 호출
         }
         throw error;
     }
