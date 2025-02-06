@@ -1,6 +1,6 @@
 'use client';
 
-import React, {useState } from 'react'
+import React, {useEffect, useState } from 'react'
 import layoutstyle from "@styles/css/layout.module.css"
 import style from '@/styles/css/diary/createDiary.module.css'
 import { IoImagesOutline } from 'react-icons/io5';
@@ -9,6 +9,10 @@ import { useImageCrop } from '@/hooks/image/useImageCrop';
 import DiaryImage from '@/components/diary/DiaryImage';
 import { useAppSelector } from '@/hooks/redux/hooks';
 import { useRouter } from 'next/navigation';
+import { basename } from 'path';
+import { createFormData } from '@/utils/createFormData';
+import { useUploadDiaryImage } from '@/features/diary/createDiary.api';
+import { v4 as uuid} from 'uuid'
 
 
 export default function CreateDiary() {
@@ -21,10 +25,14 @@ export default function CreateDiary() {
     {id: '004', name: 'Copy Notes'},
   ]
 
-  const router = useRouter();
-  const isLogin = useAppSelector((state) => state.user.isLogin);
+  const [isLogin, setIsLogin] = useState(useAppSelector((state) => state.user.isLogin));
   const [selectedCategory, setSelectedCategory] = useState<string>('001');
-  const {data} = useImageCrop();
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+  const router = useRouter();
+  const crop = useImageCrop();
+  const {image, uploadImage} = useUploadDiaryImage();
+
 
   const imageAspect = () => {
     switch (selectedCategory) {
@@ -41,6 +49,39 @@ export default function CreateDiary() {
     }
   };
 
+  /**
+   * 이미지를 선택해서 크롭한 뒤 선택하는 버튼을 클릭하면 발생하는 이벤트
+   */
+  const handleSeletImage = async () => {
+    crop.handleCropConfirm(crop.imageUrl);
+    console.log(crop.imageUrl);
+    const formData = await createFormData({
+      blobUrl: crop.croppedImage,
+      fileName:`${uuid()}.jpg`,
+      fieldName: 'image'
+    });
+    
+    if(formData){
+      uploadImage(formData)
+    }
+  }
+
+  /**
+   * 다이어리를 작성한 뒤 저장버튼을 클릭했을 때 실행되는 함수
+   */
+  const handleUploadDiary = async () => {
+    const diary = {
+      categoryId: selectedCategory,
+      title,
+      content,
+      image
+    }
+    console.log(diary);
+    uploadImage
+};
+
+  console.log(isLogin);
+
   if(!isLogin){
     router.push('/auth/login');
   }
@@ -52,29 +93,29 @@ export default function CreateDiary() {
               <div className={style.left}>
                     <DiaryImage
                       selectedCategory={selectedCategory}
-                      croppedImage={data.croppedImage}
-                      fileInputRef={data.fileInputRef}
+                      croppedImage={crop.croppedImage}
+                      fileInputRef={crop.fileInputRef}
                       handlers={{
-                        selectFile: data.selectFile,
-                        setIsCropping: data.setIsCropping,
-                        selectedImage: data.selectedImage
+                        selectFile: crop.selectFile,
+                        setIsCropping: crop.setIsCropping,
+                        selectedImage: crop.selectedImage
                     }}/>
               </div>
   
               {/* 크롭 UI */}
               {
-                data.isCropping && (
+                crop.isCropping && (
                   <div className={style.cropContainer}>
                   <Cropper
-                    image={data.imageUrl}
-                    crop={data.crop}
-                    zoom={data.zoom}
+                    image={crop.imageUrl}
+                    crop={crop.crop}
+                    zoom={crop.zoom}
                     aspect={imageAspect()} // 비율
-                    onCropChange={data.setCrop}
-                    onZoomChange={data.setZoom}
-                    onCropComplete={data.onCropComplete}
+                    onCropChange={crop.setCrop}
+                    onZoomChange={crop.setZoom}
+                    onCropComplete={crop.onCropComplete}
                   />
-                  <button className={style.cropSaveBtn} onClick={() => data.handleCropConfirm(data.imageUrl)}>확인</button>
+                  <button className={style.cropSaveBtn} onClick={handleSeletImage}>확인</button>
                 </div>
                 )
               }
@@ -85,11 +126,11 @@ export default function CreateDiary() {
                   { category.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
                 </select>
         
-                <input type='text' placeholder='제목'/>
+                <input type='text' placeholder='제목' onChange={(e) => setTitle(e.target.value)}/>
   
-                <textarea placeholder='설명'/>
+                <textarea placeholder='설명'onChange={(e) => setContent(e.target.value)}/>
   
-                <button type='button' className={style.saveBtn}>저장</button>
+                <button type='button' className={style.saveBtn} onClick={handleUploadDiary}>저장</button>
   
               </div>
           </div>

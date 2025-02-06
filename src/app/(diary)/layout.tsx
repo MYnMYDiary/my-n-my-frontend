@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import "@styles/css/globals.css";
 import layoutStyle from '@styles/css/layout.module.css'
-import ReduxProvider from "@/api/providers/ReduxProvider";
-import ReactQueryProvider from "@/api/providers/ReactQueryProvider";
 import Header from "@/components/diary/Header";
 import StyledComponentsRegistry from "@/styles/registry";
 

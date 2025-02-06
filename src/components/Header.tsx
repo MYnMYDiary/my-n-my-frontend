@@ -3,12 +3,12 @@
 import { Space } from '@/constants/name.const';
 import { setSpace } from '@/features/spaceSlice';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux/hooks';
-import { useLogout } from '@/hooks/user/logout';
 import styles from '@styles/css/header.module.css';
 import { useRouter } from 'next/navigation';  // ✅ Next.js 13 이상에서 올바른 import
 import { FaPencil } from 'react-icons/fa6';
 import { IoSearchOutline } from 'react-icons/io5';
 import { useState, useEffect } from 'react';
+import { logout } from '@/features/user/userSlice';
 
 const space = [
     { id: 0, name: Space.COMMUNITY },
@@ -21,7 +21,6 @@ export default function Header() {
     const dispatch = useAppDispatch();
     const spaceName = useAppSelector((state) => state.space.spaceName);
     const isLogin = useAppSelector((state) => state.user.isLogin);
-    const { logout } = useLogout();
 
     const handleWriteDiary = () => {
         if(!isLogin){
@@ -55,7 +54,7 @@ export default function Header() {
             {isLogin ? (
                 <div className={styles.sub_category}>
                     <p onClick={() => router && router.push('/mypage')}>마이페이지</p>
-                    <p onClick={logout}>로그아웃</p> {/* ✅ 로그아웃 기능 추가 */}
+                    <p onClick={() => dispatch(logout())}>로그아웃</p>
                     <p>고객센터</p>
                 </div>
             ) : (
