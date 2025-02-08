@@ -1,4 +1,5 @@
-import API from "@/api/interceptor/API"
+
+import API from "@/api/\bclientApi/interceptor/API";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useState } from "react";

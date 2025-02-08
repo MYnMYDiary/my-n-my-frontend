@@ -1,10 +1,8 @@
-'use client'
+"use client";
 
 import axios, { AxiosError } from "axios";
-import { store } from "../../providers/reduxStore";
-import { logout } from "@/features/user/userSlice";
 import { ThunkDispatch } from "@reduxjs/toolkit";
-import { getNewAccessToken } from "@/features/auth/authApi";
+import { getAccessToken } from "../apis/auth/token.api";
 
 
 /**
@@ -25,8 +23,6 @@ const API = axios.create({
  */
 API.interceptors.request.use(
   (config) => {
-
-    if (typeof window === "undefined") return config; 
     
     let accessToken = localStorage.getItem("accessToken");
 
@@ -81,7 +77,7 @@ API.interceptors.response.use(
         console.log("🔄 Access Token 갱신 중...");
         
         // 새 Access Token 요청
-        const newAccessToken = await getNewAccessToken();
+        const newAccessToken = await getAccessToken()
         console.log('새로 발급받은 액세스 토큰',newAccessToken);
 
         if (newAccessToken) {
@@ -93,8 +89,6 @@ API.interceptors.response.use(
 
       } catch (err) {
         console.error("❌ Refresh Token도 만료됨. 로그아웃 처리");
-        const dispatch = store?.dispatch as ThunkDispatch<any, any, any>;
-        dispatch(logout());
         return Promise.reject(err);
       }
     }
