@@ -3,7 +3,6 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { persistReducer, persistStore } from "redux-persist";
 import spaceReducer from "@/features/spaceSlice";
-import userReducer from "@/features/user/userSlice";
 import createWebStorage from "redux-persist/lib/storage/createWebStorage";
 
 // ✅ SSR 환경 대응: 서버에서는 dummyStorage 사용
@@ -25,7 +24,6 @@ const persistConfig = {
 // Reducer 설정 (Persist 적용)
 const rootReducer = combineReducers({
   space: spaceReducer, // ❌ 개별적으로 persistReducer 적용 X
-  user: userReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

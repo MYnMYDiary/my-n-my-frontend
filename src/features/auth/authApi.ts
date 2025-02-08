@@ -1,9 +1,10 @@
-import API from "@/api/interceptor/API"
+
 import { store } from "@/providers/reduxStore";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { ThunkDispatch } from "@reduxjs/toolkit";
+import API from "@/api/\bclientApi/interceptor/API";
 
 export interface AuthInfoType{
     email: string,
@@ -12,11 +13,6 @@ export interface AuthInfoType{
     code: string
 }
 
-// 🚀 로그아웃 함수
-const logout = () => {
-    document.cookie = 'refreshToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'; // RefreshToken 삭제
-    localStorage.removeItem('accessToken'); // AccessToken 삭제
-};
 
 // 이메일로 인증번호를 발송하는 API 호출 함수
 const sendAuthEmail = async ({email}:Pick<AuthInfoType,'email'>) => {
@@ -34,24 +30,6 @@ const verityEmail = async ({email, code}:Pick<AuthInfoType,'email'|'code'>) => {
         {email, code}
     );
     return data;
-}
-
-// accessToken 재발급 API
-export const getNewAccessToken = async () => {
-    
-    const dispatch = store?.dispatch as ThunkDispatch<any, any, any>; // dispatch 타입 캐스팅
-
-    try {
-        const {data} = await API.post('/auth/token/access',{}) // Body 필요없음
-        return data;       
-    } 
-    catch (error: any) {
-        if (error.response?.status === 401) {
-            dispatch(logout());
-            alert('로그인이 만료되었습니다. 다시 로그인해주세요.');
-        }
-        throw error;
-    }
 }
 
 const joinWithEmail = async ({email, password, nickname}:Pick<AuthInfoType,'email'|'password'|'nickname'>) => {

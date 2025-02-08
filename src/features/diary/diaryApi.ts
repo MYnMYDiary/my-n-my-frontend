@@ -1,4 +1,5 @@
-import API from "@/api/interceptor/API";
+
+import API from "@/api/\bclientApi/interceptor/API";
 import { useQuery } from "@tanstack/react-query";
 
 // 다이어리 데이터 타입 정의

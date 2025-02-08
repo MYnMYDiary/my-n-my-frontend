@@ -1,34 +1,33 @@
-"use client";  // ✅ 클라이언트 컴포넌트 선언
+"use client";
 
 import { Space } from '@/constants/name.const';
 import { setSpace } from '@/features/spaceSlice';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux/hooks';
 import styles from '@styles/css/header.module.css';
-import { useRouter } from 'next/navigation';  // ✅ Next.js 13 이상에서 올바른 import
+import { usePathname, useRouter } from 'next/navigation';  // ✅ Next.js 13 이상에서 올바른 import
 import { FaPencil } from 'react-icons/fa6';
 import { IoSearchOutline } from 'react-icons/io5';
 import { useState, useEffect } from 'react';
-import { logout } from '@/features/user/userSlice';
+import { useAuth } from '@/hooks/auth/useAuth';
+
 
 const space = [
     { id: 0, name: Space.COMMUNITY },
     { id: 1, name: Space.SHOPPING },
-    { id: 2, name: Space.ARITST },  // ✅ 오타 수정
+    { id: 2, name: Space.ARTIST },
 ];
 
 export default function Header() {
+    // 페이지 이동
     const router = useRouter();
+
+    //로그인 상태
+    const isLogin = useAuth();
+    console.log(isLogin);
+
     const dispatch = useAppDispatch();
     const spaceName = useAppSelector((state) => state.space.spaceName);
-    const isLogin = useAppSelector((state) => state.user.isLogin);
 
-    const handleWriteDiary = () => {
-        if(!isLogin){
-            router.push('/auth/login')
-        }else{
-            router.push('/createDiary')
-        }
-    }
 
     return (
         <div className={styles.headerBox}>
@@ -54,7 +53,7 @@ export default function Header() {
             {isLogin ? (
                 <div className={styles.sub_category}>
                     <p onClick={() => router && router.push('/mypage')}>마이페이지</p>
-                    <p onClick={() => dispatch(logout())}>로그아웃</p>
+                    <p>로그아웃</p>
                     <p>고객센터</p>
                 </div>
             ) : (
@@ -65,7 +64,7 @@ export default function Header() {
                 </div>
             )}
 
-            <div className={styles.writeButton} onClick={handleWriteDiary}>
+            <div className={styles.writeButton}>
                 <p>다이어리 쓰기</p>
                 <FaPencil size={18} color='#fff' />
             </div>
