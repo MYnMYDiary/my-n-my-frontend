@@ -1,0 +1,109 @@
+.frame{ width: 100%; padding: 10px 10px; display: flex; flex-direction: column; align-items: center; }
+
+/* 프로필 */
+
+.profileBox{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 70%;
+    box-sizing: border-box;
+    padding: 15px 10px;
+    border-bottom: 1px solid #f2668b;
+    font-family: 'Cafe24SsurroundAir';
+    margin-bottom: 40px;
+}
+
+.profileBox h1 {
+    font-size: 30px;
+    margin: 10px 0px;
+}
+
+.profileImage{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 1px solid lightgray;
+    box-sizing: border-box;
+    padding: 10px 10px;
+    margin: 10px 10px
+}
+
+.followBox{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0px;
+}
+
+.follow{
+    width: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0px 13px;
+    cursor: pointer;
+}
+
+.follow h1 {
+    font-size: 30px;
+
+}
+
+.follow p {
+    font-size: 13px;
+}
+
+.userInfoBox{
+    min-width: 400px;
+    height: 105px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border: 1px solid pink;
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding: 15px 15px;
+    margin: 10px 0px;
+    justify-content: space-between;
+}
+
+.role_message{
+    min-width: 170px;
+    width: 100%;
+    text-align: right;
+    margin-top: 45px;
+    color: #f26689;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
+/* 다이어리 */
+
+.diaryFrame{
+    font-family: 'Cafe24SsurroundAir';
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+}
+
+.categoryBox{
+    display: flex;
+}
+
+.category{
+    width: 200px;
+    height: 50px;
+    border: 1px solid pink;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #f2668b;
+}
+
+.diaryBox {
+    display: flex;
+}
