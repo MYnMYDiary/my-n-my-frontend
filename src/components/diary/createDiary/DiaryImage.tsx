@@ -15,12 +15,7 @@ interface DiaryImageProps{
     }
 }
 
-export default function DiaryImage({
-    selectedCategory,
-    croppedImage,
-    fileInputRef,
-    handlers
-} :DiaryImageProps) {
+export default function DiaryImage({selectedCategory,croppedImage,fileInputRef,handlers} :DiaryImageProps) {
 
     const getImageBoxClass = () => {
         switch (selectedCategory) {

@@ -9,6 +9,7 @@ import { FaPencil } from 'react-icons/fa6';
 import { IoSearchOutline } from 'react-icons/io5';
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/hooks/auth/useAuth';
+import { logout } from '@/api/apis/user/login.api';
 
 
 const space = [
@@ -21,13 +22,23 @@ export default function Header() {
     // 페이지 이동
     const router = useRouter();
 
-    //로그인 상태
-    const isLogin = useAuth();
-    console.log(isLogin);
+    const [isLogin, setIsLogin] = useState<boolean>(false); // 기본값 false
+    const authStatus = useAuth(); // useAuth()는 항상 최신 상태를 반환
+    
+    useEffect(() => {
+        setIsLogin(authStatus); // ✅ useAuth() 값이 변경될 때마다 상태 업데이트
+    }, [authStatus]); 
+
+    //let isLogin = useAuth();
+    console.log("로그인 상태: ", isLogin)
 
     const dispatch = useAppDispatch();
     const spaceName = useAppSelector((state) => state.space.spaceName);
 
+    const handleLogout = async () => {
+        logout(); //토큰 모두 삭제
+        setIsLogin(false);
+    }
 
     return (
         <div className={styles.headerBox}>
@@ -53,7 +64,7 @@ export default function Header() {
             {isLogin ? (
                 <div className={styles.sub_category}>
                     <p onClick={() => router && router.push('/mypage')}>마이페이지</p>
-                    <p>로그아웃</p>
+                    <p onClick={handleLogout}>로그아웃</p>
                     <p>고객센터</p>
                 </div>
             ) : (
@@ -64,7 +75,7 @@ export default function Header() {
                 </div>
             )}
 
-            <div className={styles.writeButton}>
+            <div className={styles.writeButton} onClick={() => router.push('/createDiary')}>
                 <p>다이어리 쓰기</p>
                 <FaPencil size={18} color='#fff' />
             </div>

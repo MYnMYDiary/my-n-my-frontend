@@ -4,7 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { ThunkDispatch } from "@reduxjs/toolkit";
-import API from "@/api/\bclientApi/interceptor/API";
+import API from "@/api/interceptor/API";
 
 export interface AuthInfoType{
     email: string,

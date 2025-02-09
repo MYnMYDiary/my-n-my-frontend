@@ -1,6 +1,8 @@
 "use client";
 
-import { Diary, useGetAllDiarys } from "@/features/diary/diaryApi";
+import { DiaryType } from "@/api/apis/diary/getDiary.api";
+import { useGetAllDiarys } from "@/api/queries/diary/getDiary.query";
+
 
 
 
@@ -14,7 +16,7 @@ export default function DiaryPage() {
     return(
       <div>
         <h2>다이어리 화면</h2>
-        {diarys?.map((diary:Diary, index:number) => (
+        {diarys?.map((diary:DiaryType, index:number) => (
           <p key={index} >{diary.title}</p>
         ))}
       </div>
