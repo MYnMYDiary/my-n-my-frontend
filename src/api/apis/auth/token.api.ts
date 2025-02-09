@@ -1,6 +1,6 @@
 // /app/api/auth/token/route.ts (Next.js API Route)
 import axios from "axios";
-import { logoutApi } from "../user/login.api";
+import { logout } from "../user/login.api";
 
 
 export async function fetchAccessToken() {
@@ -15,7 +15,7 @@ export async function fetchAccessToken() {
 
         if (res.status === 401) {
             console.log("로그인이 만료되었습니다.");
-            logoutApi();
+            logout();
             throw new Error("Unauthorized");
         }
 

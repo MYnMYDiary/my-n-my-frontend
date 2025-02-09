@@ -1,6 +1,6 @@
-"use client";
+"use client"
 
-import { getAccessToken } from "@/api/clientApi/apis/auth/token.api";
+import { getAccessToken } from "@/api/apis/auth/token.api";
 import { useMutation } from "@tanstack/react-query";
 import { access } from "fs";
 import { useEffect, useState } from "react";

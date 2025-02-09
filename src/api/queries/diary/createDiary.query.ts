@@ -1,40 +1,9 @@
+'use client'
 
-import API from "@/api/\bclientApi/interceptor/API";
+import { uploadImageApi } from "@/api/apis/diary/createDiary.api";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useState } from "react";
-
-export const uploadImageApi = async (formData:FormData) => {
-    console.log(formData?.get('image'));
-    try {        
-        const {data} = await API.post(
-            '/common/image',
-            formData,
-            {
-                headers: { 'Content-Type': 'multipart/form-data'},
-                timeout: 10000,
-            },
-        )
-        console.log(data);
-        return data;
-    } catch (error) {
-        throw error;
-    }
-}
-
-export const saveDiaryImage = async() => {
-    try {
-        const {data} = await API.post(
-            '/diary',
-            {
-                
-            }
-        )
-    } catch (error) {
-        
-    }
-}
-
 
 /**
  * 이미지를 temp 폴더에 업로드
