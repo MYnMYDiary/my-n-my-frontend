@@ -1,9 +1,12 @@
-'use client';
-
-import React from 'react'
+import MyDiary from '@/components/diary/mypage/mydiary.component'
+import Profile from '@/components/diary/mypage/profile.component'
+import style from '@styles/css/mypage/mypage.module.css'
 
 export default function page() {
   return (
-    <div>마이페이지</div>
+    <div className={style.frame}>
+      <Profile/>
+      <MyDiary/>
+    </div>
   )
 }
