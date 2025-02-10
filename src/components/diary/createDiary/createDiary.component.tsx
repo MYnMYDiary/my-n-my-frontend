@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import style from '@/styles/css/diary/createDiary.module.css'
 import Cropper from 'react-easy-crop';
 import { useImageCrop } from '@/hooks/image/useImageCrop';
@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import { createFormData } from '@/utils/createFormData';
 import { v4 as uuid} from 'uuid'
 import { useUploadDiaryImage } from '@/api/queries/diary/createDiary.query';
+import { PostDiaryType, uploadDiary } from '@/api/apis/diary/createDiary.api';
 
 // API로 가져오기(추후 수정)
 const category = [
@@ -23,6 +24,7 @@ export default function CreateDiary() {
     const [selectedCategory, setSelectedCategory] = useState<string>('001');
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+    const [croppedImg, setCroppedImg] = useState<string>('');
 
     // 이미지 자르기
     const crop = useImageCrop();
@@ -50,18 +52,30 @@ export default function CreateDiary() {
      * 이미지를 선택해서 크롭한 뒤 선택하는 버튼을 클릭하면 발생하는 이벤트
      */
     const handleSeletImage = async () => {
-      crop.handleCropConfirm(crop.imageUrl);
+      const cropped = await crop.handleCropConfirm(crop.imageUrl);
+      if (!cropped) return;
 
-      const formData = await createFormData({
-        blobUrl: crop.croppedImage,
-        fileName:`${uuid()}.jpg`,
-        fieldName: 'image'
-      });
-      
-      if(formData){
-        uploadImage(formData)
-      }
-    }
+      setCroppedImg(cropped); // ✅ 상태 업데이트
+    };
+
+    /**
+    * croppedImg 변경될 때 업로드 실행
+    */
+    useEffect(() => {
+      if (!croppedImg) return;
+
+      (async () => {
+        const formData = await createFormData({
+          blobUrl: croppedImg,
+          fileName: `${uuid()}.jpg`,
+          fieldName: 'image'
+        });
+
+        if (formData) {
+          uploadImage(formData);
+        }
+      })();
+    }, [croppedImg]); // 🔥 croppedImg가 변경될 때 실행
 
     const checkDiary = (title: string, content: string, image: string) => {
 
@@ -89,6 +103,14 @@ export default function CreateDiary() {
     const handleUploadDiary = async () => {
       const diary = checkDiary(title, content, image);
       console.log(diary);
+      if(diary){
+        uploadDiary({
+          categoryId: diary.categoryId,
+          title: diary.title,
+          content: diary.content,
+          image: diary.image
+        });
+      }
   };
 
   return (
@@ -97,12 +119,12 @@ export default function CreateDiary() {
         <div className={style.left}>
               <DiaryImage
                 selectedCategory={selectedCategory}
-                croppedImage={crop.croppedImage}
+                croppedImage={croppedImg}
                 fileInputRef={crop.fileInputRef}
                 handlers={{
                   selectFile: crop.selectFile,
                   setIsCropping: crop.setIsCropping,
-                  selectedImage: crop.selectedImage
+                  selectedImage: crop.selectedImage,                 
               }}/>
         </div>
 

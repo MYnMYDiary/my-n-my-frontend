@@ -13,13 +13,10 @@ export function useUploadDiaryImage() {
 
     const [image, setImage] = useState<string>('')
 
-    const uploadImage = (formData: FormData) => {
-        mutation.mutate(formData);
-    }
-
     const mutation = useMutation({
         mutationFn: uploadImageApi,
         onSuccess: async(data) => {
+            setImage('');
             setImage(data.fileName);
         },
         onError: (error : AxiosError) => {
@@ -27,6 +24,10 @@ export function useUploadDiaryImage() {
             console.error('이미지 업로드 에러:', error.response?.data);
         },  
     })
+
+    const uploadImage = (formData: FormData) => {
+        mutation.mutate(formData);
+    };
 
     return {image, uploadImage}
 }
