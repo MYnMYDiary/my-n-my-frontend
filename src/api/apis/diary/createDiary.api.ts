@@ -3,7 +3,6 @@
 import API from "@/api/interceptor/API";
 
 export const uploadImageApi = async (formData:FormData) => {
-    console.log(formData?.get('image'));
     try {        
         const {data} = await API.post(
             '/common/image',
@@ -13,9 +12,28 @@ export const uploadImageApi = async (formData:FormData) => {
                 timeout: 10000,
             },
         )
+        return data;
+    } catch (error) {
+        return error;
+    }
+}
+
+export interface PostDiaryType{
+    categoryId: string;
+    title: string;
+    content: string;
+    image: string;
+}
+
+export const uploadDiary = async ({categoryId, title, content, image}:PostDiaryType) => {
+    try {
+        const {data} = await API.post(
+            '/diary',
+            {categoryId, title, content, image}
+        )
         console.log(data);
         return data;
     } catch (error) {
-        throw error;
+        
     }
 }

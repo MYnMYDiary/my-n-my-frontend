@@ -8,7 +8,7 @@ export const blobUrlToFile = async (blobUrl:string, fileName:string) => {
     try {
         const response = await fetch(blobUrl);
         const blob = await response.blob();
-        return new File([blob], fileName, { type: blob.type });
+        return new File([blob], fileName, { type: "image/jpeg"});
     } catch (error) {
         console.error("Error converting blob URL to file:", error);
         return null;

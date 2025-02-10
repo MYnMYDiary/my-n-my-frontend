@@ -18,7 +18,7 @@ export const useImageCrop = () => {
   const [crop, setCrop] = useState({ x: 0, y: 0 }); // 현재 이미지 크롭 상태 (x, y 좌표)
   const [zoom, setZoom] = useState(1); // 줌 상태 (1은 기본 크기)
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null); // 픽셀 단위의 크롭 영역 정보를 저장하는 상태 (초기값 null)
-  const [croppedImage, setCroppedImage] = useState<string>(''); // 크롭된 이미지의 Base64 또는 Blob URL을 저장하는 상태
+  //const [croppedImage, setCroppedImage] = useState<string>(''); // 크롭된 이미지의 Base64 또는 Blob URL을 저장하는 상태
   const [isCropping, setIsCropping] = useState(false); // 크롭 작업이 진행 중인지 여부를 나타내는 상태
 
   /**
@@ -35,11 +35,11 @@ export const useImageCrop = () => {
   const selectedImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
 
-    if (file) {
-        const imageUrl = URL.createObjectURL(file);
-        console.log("Blob URL:", imageUrl);
-        setImageUrl(imageUrl); //선택한 이미지 저장
-        setIsCropping(true); //이미지가 선택되면 크롭작업 진행하기
+    if (file) {  
+      const imageUrl = URL.createObjectURL(file);
+      console.log("Blob URL:", imageUrl);
+      setImageUrl(imageUrl);
+      setIsCropping(true);
     }
   };
 
@@ -59,15 +59,17 @@ export const useImageCrop = () => {
   const handleCropConfirm = async (image:string) => {
 
     // 크롭된 이미지가 없다면
-    if (!croppedAreaPixels) return;
+    if (!croppedAreaPixels) return '';
 
     // 크롭된 이미지 확정
     try {
       const croppedImg = await getCroppedImg(image, croppedAreaPixels);
-      setCroppedImage(croppedImg);
+      //setCroppedImage(croppedImg);
       setIsCropping(false);
+      return croppedImg; // 🚀 크롭된 이미지 반환
     } catch (error) {
       console.error("Cropping failed:", error);
+      return ''
     }
   };
 
@@ -77,7 +79,6 @@ export const useImageCrop = () => {
       crop,
       zoom,
       isCropping,
-      croppedImage,
       selectFile,
       selectedImage,
       setCrop,
