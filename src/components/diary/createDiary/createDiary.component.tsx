@@ -8,8 +8,7 @@ import DiaryImage from '@/components/diary/createDiary/DiaryImage';
 import { useRouter } from 'next/navigation';
 import { createFormData } from '@/utils/createFormData';
 import { v4 as uuid} from 'uuid'
-import { useUploadDiaryImage } from '@/api/queries/diary/createDiary.query';
-import { PostDiaryType, uploadDiary } from '@/api/apis/diary/createDiary.api';
+import { useUploadDiary, useUploadDiaryImage } from '@/api/queries/diary/createDiary.query';
 
 // API로 가져오기(추후 수정)
 const category = [
@@ -21,6 +20,8 @@ const category = [
 
 export default function CreateDiary() {
 
+    const router = useRouter();
+
     const [selectedCategory, setSelectedCategory] = useState<string>('001');
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
@@ -31,6 +32,9 @@ export default function CreateDiary() {
 
     //이미지 업로드
     const {image, uploadImage} = useUploadDiaryImage();
+
+    //다이어리 업로드
+    const {isSuccess, uploadDiary} = useUploadDiary();
   
   
     const imageAspect = () => {
@@ -104,12 +108,15 @@ export default function CreateDiary() {
       const diary = checkDiary(title, content, image);
       console.log(diary);
       if(diary){
-        uploadDiary({
-          categoryId: diary.categoryId,
-          title: diary.title,
-          content: diary.content,
-          image: diary.image
-        });
+        try {
+          uploadDiary({
+            categoryId: diary.categoryId,
+            title: diary.title,
+            content: diary.content,
+            image: diary.image
+          });
+          router.push('/mypage');
+        } catch (error) {console.log(error);}
       }
   };
 

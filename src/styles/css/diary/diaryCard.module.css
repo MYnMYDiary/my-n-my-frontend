@@ -1,0 +1,35 @@
+
+.cardBox{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border-bottom: 1px solid pink;
+    margin: 25px 0px;
+}
+
+.cardBox img{
+    width: 800px;
+    min-width: 500px;
+    aspect-ratio: 16 / 9; /* 가로:세로 비율 */
+    border-radius: 15px;
+    object-fit: cover;
+}
+
+.cardBox h1{
+    font-size: 20px;
+    font-weight: bold;
+    margin: 15px 0px;
+}
+
+.cardBoxText{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.likeCount{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
