@@ -25,7 +25,7 @@ export interface PostDiaryType{
     image: string;
 }
 
-export const uploadDiary = async ({categoryId, title, content, image}:PostDiaryType) => {
+export const uploadDiaryApi = async ({categoryId, title, content, image}:PostDiaryType) => {
     try {
         const {data} = await API.post(
             '/diary',

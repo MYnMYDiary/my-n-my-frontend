@@ -1,6 +1,6 @@
 'use client'
 
-import { uploadImageApi } from "@/api/apis/diary/createDiary.api";
+import { PostDiaryType, uploadDiaryApi, uploadImageApi } from "@/api/apis/diary/createDiary.api";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useState } from "react";
@@ -30,4 +30,27 @@ export function useUploadDiaryImage() {
     };
 
     return {image, uploadImage}
+}
+
+
+export function useUploadDiary() {
+
+    const mutation = useMutation({
+        mutationFn: uploadDiaryApi,
+        onSuccess: async(data) => {
+            return data;
+        },
+        onError: (error : AxiosError) => {
+            console.error(error);
+        },  
+    })
+
+    const uploadDiary = ({categoryId, title, content, image}:PostDiaryType) => {
+        mutation.mutate({categoryId, title, content, image});
+    };
+
+    return {
+        uploadDiary,
+        isSuccess: mutation.isSuccess
+    }
 }
