@@ -8,6 +8,11 @@ export interface DiaryType{
     image: string
 }
 
+export interface PaginationQuery {
+    page?: number;
+    limit?: number;
+}
+
 /**
  * 모든 다이어리를 가져오는 API 호출 함수
  * @returns 
@@ -22,15 +27,19 @@ export const getAllDiarys = async () => {
  * @param category 
  * @returns 
  */
-export const getDiaryByUser = async (category:string) => {
+export const getDiaryByUser = async (categoryId: string, query: PaginationQuery = {}) => {
     try {        
         const { data } = await API.post(
             '/diary/mydiary',
-            {category}
+            { category: categoryId },
+            { 
+                params: query
+            }
         );
         return data;
     } catch (error) {
         console.log(error);
+        throw error;
     }
 };
 

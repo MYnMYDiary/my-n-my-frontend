@@ -19,6 +19,7 @@
     "react-dom": "18",
     "react-easy-crop": "^5.2.0",
     "react-icons": "^5.4.0",
+    "react-intersection-observer": "^9.16.0",
     "react-redux": "^9.2.0",
     "redux-devtools-extension": "^2.13.9",
     "redux-persist": "^6.0.0",

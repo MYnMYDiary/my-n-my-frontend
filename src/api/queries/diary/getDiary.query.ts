@@ -1,8 +1,19 @@
 'use client'
 
 import { getAllDiarys, getDiaryByUser, getDiaryImage } from "@/api/apis/diary/getDiary.api";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import API from "@/api/interceptor/API";
+import { DiaryType } from "@/components/diary/mypage/mydiary.component";
+import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
+
+export interface DiaryResponse {
+  count: number;
+  cursor: {
+    after: number;
+  };
+  data: DiaryType[];
+  next: string;
+}
 
 // React Query 훅
 export function useGetAllDiarys (){
@@ -12,7 +23,6 @@ export function useGetAllDiarys (){
       staleTime: 1000 * 60 * 5, // 5분 캐싱
     });
 };
-
 
 export function useGetMyDiary(category: string) {
   const { data, mutate} = useMutation({

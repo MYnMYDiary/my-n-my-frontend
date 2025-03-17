@@ -4,12 +4,12 @@ import { Space } from '@/constants/name.const';
 import { setSpace } from '@/features/spaceSlice';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux/hooks';
 import styles from '@styles/css/header.module.css';
-import { usePathname, useRouter } from 'next/navigation';  // ✅ Next.js 13 이상에서 올바른 import
-import { FaPencil } from 'react-icons/fa6';
+import { useRouter } from 'next/navigation';  // ✅ Next.js 13 이상에서 올바른 import
 import { IoSearchOutline } from 'react-icons/io5';
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/hooks/auth/useAuth';
 import { logout } from '@/api/apis/user/login.api';
+import WriteDiaryButton from '@styles/styled-components/buttons/writeDiary.button';
 
 
 const space = [
@@ -75,10 +75,7 @@ export default function Header() {
                 </div>
             )}
 
-            <div className={styles.writeButton} onClick={() => router.push('/createDiary')}>
-                <p>다이어리 쓰기</p>
-                <FaPencil size={18} color='#fff' />
-            </div>
+            <WriteDiaryButton text='다이어리 쓰기' w={150} />
         </div>
     );
 }

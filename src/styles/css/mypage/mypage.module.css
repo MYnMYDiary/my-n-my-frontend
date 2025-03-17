@@ -1,22 +1,32 @@
-.frame{ width: 100%; padding: 10px 10px; display: flex; flex-direction: column; align-items: center; }
+.frame{ 
+    width: 100%; 
+    padding: 50px 10px; 
+    display: flex;
+    justify-content: space-between;
+}
 
 /* 프로필 */
 
 .profileBox{
+    min-width: 400px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 70%;
     box-sizing: border-box;
     padding: 15px 10px;
-    border-bottom: 1px solid #f2668b;
     font-family: 'Cafe24SsurroundAir';
-    margin-bottom: 40px;
+    border: 1px solid pink;
+    border-radius: 10px;
+    margin-right: 30px;
 }
 
 .profileBox h1 {
     font-size: 30px;
     margin: 10px 0px;
+}
+
+.imageBox{
+    position: relative;
 }
 
 .profileImage{
@@ -29,11 +39,25 @@
     margin: 10px 10px
 }
 
+.iconBox{
+    width: 35px;
+    height: 35px;
+    background-color: #f2668b;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 45px;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
 .followBox{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 10px 0px;
+    margin: 20px 0px;
 }
 
 .follow{
@@ -54,19 +78,6 @@
     font-size: 13px;
 }
 
-.userInfoBox{
-    min-width: 400px;
-    height: 105px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    border: 1px solid pink;
-    border-radius: 10px;
-    box-sizing: border-box;
-    padding: 15px 15px;
-    margin: 10px 0px;
-    justify-content: space-between;
-}
 
 .role_message{
     min-width: 170px;
@@ -78,6 +89,13 @@
     font-weight: bold;
 }
 
+.contentFrame{
+    display: flex;
+    flex-direction: column;
+    min-width: 1000px;
+    width: 70%;
+}
+
 
 /* 다이어리 */
 
@@ -85,7 +103,6 @@
     font-family: 'Cafe24SsurroundAir';
     display: flex;
     flex-direction: column;
-    width: 70%;
 }
 
 .categoryBox{
@@ -116,4 +133,18 @@
     flex-direction: column;
     align-items: center;
     margin: 30px 0px;
+}
+
+
+/* 버튼 */
+
+.button01{
+    width: 200px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: #f2668b;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
 }
