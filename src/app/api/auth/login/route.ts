@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
                     secure: process.env.NODE_ENV === "production",
                     sameSite: true,
                     path: "/",
-                    maxAge: 60 * 60 * 3, // 3시간 유지 - 백엔드의 refreshToken 유지 시간과 맞추기
+                    maxAge: 7 * 24 * 60 * 60 * 1000, // 3시간 유지 - 백엔드의 refreshToken 유지 시간과 맞추기
                     //maxAge: 60 * 60 * 24 * 7, // 7일 유지
                 });
             }

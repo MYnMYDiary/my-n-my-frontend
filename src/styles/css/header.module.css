@@ -75,19 +75,3 @@
     text-align: center;
     cursor: pointer;
 }
-
-.writeButton{
-    width: 150px;
-    height: 53px;
-    border-radius: 8px;
-    display: flex;
-    background-color: #f26689;
-    color: white;
-    font-size: 17px;
-    font-family: 'Cafe24Ssurround';
-    align-items: center;
-    justify-content: space-around;
-    padding: 0px 10px;
-    box-sizing: border-box;
-    cursor: pointer;
-}

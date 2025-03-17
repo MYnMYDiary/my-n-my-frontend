@@ -21,11 +21,12 @@
 .diaryLayout{
     display: flex;
     flex-direction: column;
-    width: 85vw;
+    min-width: 1500px;
+    max-width: 1500px;
     height: 100%;
     background-color: var(--background-diary);
     color: var(--foreground-diary);
-    margin: 25px 0px;
+    margin: 25px 70px;
 }
 
 

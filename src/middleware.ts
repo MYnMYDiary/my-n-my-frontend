@@ -6,7 +6,7 @@ export async function middleware(req: NextRequest) {
   const res = NextResponse.next();
   const url = req.nextUrl;
 
-  const protectedRoutes = ['/createDiary', '/myPage'];
+  const protectedRoutes = ['/createDiary', '/mypage'];
 
   // 보호된 페이지인지 확인
   if (!protectedRoutes.some((route) => url.pathname.startsWith(route))) {
@@ -57,5 +57,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/createDiary', '/myPage'],
+  matcher: ['/createDiary', '/mypage'],
 };
