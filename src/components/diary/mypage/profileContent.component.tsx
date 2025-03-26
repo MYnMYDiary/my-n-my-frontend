@@ -1,12 +1,19 @@
 'use client'
 
+import { MyDiaryCategoryProvider } from "./contexts/mydiaryCategory.context"
 import MyDiary from "./mydiary.component"
 import style from '@styles/css/mypage/mypage.module.css'
 
 export default function ProfileContent({activeTab}: {activeTab: 'follower' | 'following' | 'diary'}) {
   return (
     <div className={style.contentFrame}>
-        {activeTab === 'diary' && <MyDiary/>}
+      {/* 다이어리 */}
+      {activeTab === 'diary' && 
+        <MyDiaryCategoryProvider>
+          <MyDiary/>
+        </MyDiaryCategoryProvider>
+      }
+
         {/* {activeTab === 'follower' && <Follower/>}
         {activeTab === 'following' && <Following/>} */}
     </div>

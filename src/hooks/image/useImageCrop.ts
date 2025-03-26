@@ -1,6 +1,7 @@
 'use client';
 
 import { getCroppedImg } from "@/utils/cropUtils";
+import heic2any from "heic2any";
 import { useState, useCallback, useRef } from "react";
 
 import { Area } from "react-easy-crop"; // ✅ Area 타입 임포트
@@ -32,14 +33,35 @@ export const useImageCrop = () => {
   /**
    * 2. 파일 선택에서 이미지를 선택했을 때 일어나는 함수
    */
-  const selectedImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const selectedImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
 
-    if (file) {  
-      const imageUrl = URL.createObjectURL(file);
-      console.log("Blob URL:", imageUrl);
-      setImageUrl(imageUrl);
-      setIsCropping(true);
+    if (file) {
+      try {
+        let processedFile = file;
+        
+        // HEIC 파일인 경우 JPG로 변환
+        if (file.type === 'image/heic' || file.type === 'image/heif') {
+          processedFile = await convertHeicToJpg(file);
+        }
+        
+        // 허용된 이미지 형식 검사
+        const validImageTypes = ['image/jpeg', 'image/png'];
+        if (!validImageTypes.includes(processedFile.type)) {
+          alert('JPG 또는 PNG 형식의 이미지만 업로드 가능합니다.');
+          e.target.value = '';
+          return;
+        }
+
+        const imageUrl = URL.createObjectURL(processedFile);
+        setImageUrl(imageUrl);
+        setIsCropping(true);
+        
+      } catch (error) {
+        console.error('이미지 처리 중 오류 발생:', error);
+        alert('이미지 처리 중 오류가 발생했습니다.');
+        e.target.value = '';
+      }
     }
   };
 
@@ -72,6 +94,31 @@ export const useImageCrop = () => {
       return ''
     }
   };
+
+
+    /**
+   * HEIC 파일을 JPG로 변환하는 함수
+   * @param file - 변환할 HEIC 파일
+   * @returns 변환된 JPG 파일
+   */
+    const convertHeicToJpg = async (file: File): Promise<File> => {
+      try {
+        const convertedBlob = await heic2any({
+          blob: file,
+          toType: 'image/jpeg',
+          quality: 0.8
+        });
+  
+        return new File(
+          [convertedBlob as Blob],
+          file.name.replace(/\.(heic|HEIC)$/, '.jpg'),
+          { type: 'image/jpeg' }
+        );
+      } catch (error) {
+        console.error('HEIC 변환 중 오류:', error);
+        throw new Error('HEIC 이미지 변환에 실패했습니다.');
+      }
+    };
 
   return {
       imageUrl,

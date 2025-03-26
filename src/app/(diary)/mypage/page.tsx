@@ -4,6 +4,8 @@ import { useState } from 'react'
 import dynamic from 'next/dynamic'
 import ProfileContent from '@/components/diary/mypage/profileContent.component'
 import style from '@styles/css/mypage/mypage.module.css'
+import DetailDiary from '@/components/diary/detailDiary.component'
+import { MyPageModalProvider } from '@/components/diary/mypage/contexts/mypageModal.context'
 
 const Profile = dynamic(() => import('@/components/diary/mypage/profile.component'), {
   ssr: false
@@ -14,9 +16,13 @@ export default function Page() {
   const [activeTab, setActiveTab] = useState<'follower' | 'following' | 'diary'>('diary')
 
   return (
-    <div className={style.frame}>
-      <Profile setActiveTab={setActiveTab} />
-      <ProfileContent activeTab={activeTab} />
-    </div>
+    <MyPageModalProvider>
+      <div className={style.frame}>
+        <Profile setActiveTab={setActiveTab} />
+        <ProfileContent activeTab={activeTab} />
+
+        <DetailDiary/>
+      </div>
+    </MyPageModalProvider>
   )
 }

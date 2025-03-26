@@ -15,14 +15,15 @@
     object-fit: cover;
 }
 
-.cardBox h1{
+.cardBox_title{
+    width: 90%;
     font-size: 20px;
     font-weight: bold;
     margin: 15px 0px;
 }
 
 .cardBoxText{
-    width: 100%;
+    width: 90%;
     display: flex;
     justify-content: space-between;
     margin-bottom: 15px;
@@ -33,3 +34,22 @@
     align-items: center;
     gap: 5px;
 }
+
+
+.cardBox_daily{
+    width: 335px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cardBox_daily img{
+    width: 90%;
+    min-width: 315px;
+    aspect-ratio: 1/1; /* 가로:세로 비율 */
+    border-radius: 15px;
+    object-fit: cover;
+}
+
+
+

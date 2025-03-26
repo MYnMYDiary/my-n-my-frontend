@@ -23,17 +23,19 @@ export interface PostDiaryType{
     title: string;
     content: string;
     image: string;
+    year: string;
+    month: string;
 }
 
-export const uploadDiaryApi = async ({categoryId, title, content, image}:PostDiaryType) => {
+export const uploadDiaryApi = async ({categoryId, title, content, image, year, month}:PostDiaryType) => {
     try {
         const {data} = await API.post(
             '/diary',
-            {categoryId, title, content, image}
+            {categoryId, title, content, image, year, month}
         )
         console.log(data);
         return data;
     } catch (error) {
-        
+        console.log(error);
     }
 }

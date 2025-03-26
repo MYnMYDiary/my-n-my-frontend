@@ -12,14 +12,9 @@ import { useInView } from 'react-intersection-observer'
 import axios from 'axios'
 import API from '@/api/interceptor/API'
 import { useInfiniteQuery } from '@tanstack/react-query'
+import MyDiaryHeader from './mydiaryHeader.component'
+import { useMyDiaryCategory } from './contexts/mydiaryCategory.context'
 
-const categories = [
-  { id: '001', name: 'Monthly'},
-  { id: '002', name: 'Weekly'},
-  { id: '003', name: 'Daily'},
-  { id: '004', name: 'Copy Notes'},
-  { id: '005', name: 'Study Planer'},
-]
 
 export interface DiaryType{
   space: string,
@@ -35,15 +30,17 @@ export interface DiaryType{
 
 export default function MyDiary() {
 
-  const [selectedCategory, setSelectedCategory] = useState<string>('001'); //카테고리 선택(초기값: Monthly)
-  const {data:initDiaries} = useGetMyDiary(selectedCategory); //처음 5개의 데이터
+  const { selectedCategory } = useMyDiaryCategory(); // 카테고리 선택
+  const { selectedYear, selectedMonth } = useMyDiaryCategory(); // 연도, 월 선택
+
   const { ref, inView } = useInView(); //무한 스크롤 처리
 
   const { data: 
     allDiaries,         // 모든 페이지의 데이터를 포함하는 객체
     fetchNextPage,      // 다음 페이지를 불러오는 함수
     hasNextPage,        // 다음 페이지 존재 여부 (boolean)
-    isFetchingNextPage  // 현재 다음 페이지 로딩 중인지 여부
+    isFetchingNextPage,  // 현재 다음 페이지 로딩 중인지 여부
+    refetch
   } = useInfiniteQuery({
     // 캐시 키 (카테고리가 변경되면 새로운 쿼리 시작)
     queryKey: ['diaries', selectedCategory],
@@ -59,27 +56,26 @@ export default function MyDiary() {
     initialPageParam: null
   });
   
+  // 다음 페이지가 존재할 때 무한 스크롤 처리
   useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) {
       fetchNextPage();
     }
   }, [inView, hasNextPage]);
 
+  // 카테고리 변경 시 데이터 리셋을 위한 useEffect
+  useEffect(() => {
+    refetch();
+  }, [selectedCategory, refetch]);
+
+  console.log(allDiaries);
+
 
   return (
     <div className={style.diaryFrame}>
 
-        <div className={style.categoryBox}>
-          {categories.map(c => 
-            <div 
-              key={c.id}
-              className={`${style.category} ${selectedCategory === c.id ? style.selected : ''}`}
-              onClick={() => setSelectedCategory(c.id)}
-            >
-              {c.name}
-            </div>
-          )}
-        </div>
+      {/* 헤더 */}
+      <MyDiaryHeader/>
 
         <div className={style.diaryBox}>
           {selectedCategory === '001' && 
@@ -97,7 +93,32 @@ export default function MyDiary() {
             )
           }
           {selectedCategory == '002' && <WeeklyDiaryCard/>}
-          {selectedCategory == '003' && <DailyDiaryCard/>}
+
+          {selectedCategory == '003' &&
+            allDiaries?.pages.map((page) => {
+              // 현재 페이지의 데이터를 3개씩 그룹화
+              const rows = [];
+              for (let i = 0; i < page.data.length; i += 3) {
+                rows.push(page.data.slice(i, i + 3));
+              }
+              
+              return rows.map((row, rowIndex) => (
+                <div key={rowIndex} className={style.dailyCardWrapper}>
+                  {row.map((diary: DiaryType, index: number) => (
+                    <DailyDiaryCard
+                      ref={rowIndex === rows.length - 1 && index === row.length - 1 ? ref : undefined}
+                      key={diary.id}
+                      diaryId={diary.id}
+                      image={diary.diary_image}
+                      title={diary.title}
+                      date={diary.createdat}
+                      likeCount={diary.likecount}
+                    />
+                  ))}
+                </div>
+              ));
+            })
+          }
           {selectedCategory == '004' && <CopyNoteCard/>}
           {selectedCategory == '005' && <StudyPlannerCard/>}           
         </div>
