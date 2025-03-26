@@ -77,7 +77,13 @@
     align-items: center;
 }
 
-.right select {
+.option{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.option select {
     width: 450px;
     height: 35px;
     border: 1px solid pink;
@@ -86,7 +92,7 @@
     margin: 5px 0px;
 }
 
-.right input{
+.option input{
     width: 450px;
     height: 35px;
     border: 1px solid pink;
@@ -95,13 +101,20 @@
     margin: 5px 0px;
 }
 
-.right textarea {
+.option textarea {
     width: 450px;
     height: 80px;
     border: 1px solid pink;
     border-radius: 8px;
     padding: 10px 10px;
     margin: 5px 0px;
+}
+
+.datePicker{
+    display: flex;
+    width: 450px;
+    gap: 10px;
+    margin: 10px 0px;
 }
 
 

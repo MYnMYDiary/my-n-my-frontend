@@ -21,7 +21,7 @@ const MonthlyDiaryCard = forwardRef<HTMLDivElement, MonthlyDiaryCardProps>(
   return (
     <div ref={ref} className={style.cardBox}>
         <img src={imageUrl} />
-        <h1>{title}</h1>
+        <h1 className={style.cardBox_title}>{title}</h1>
         <div className={style.cardBoxText}>
           <div className={style.likeCount}><FaRegHeart size={20} />{likeCount}</div>
           <p>{date}</p>
