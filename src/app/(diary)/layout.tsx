@@ -3,6 +3,7 @@ import "@styles/css/globals.css";
 import layoutStyle from '@styles/css/layout.module.css'
 import Header from "@/components/diary/Header";
 import StyledComponentsRegistry from "@/styles/registry";
+import { MyPageModalProvider } from "@/components/diary/mypage/contexts/mypageModal.context";
 
 export const metadata: Metadata = {
   title: "다이어리 꾸밀 때, 마이앤마이",
@@ -13,9 +14,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className={layoutStyle.diaryLayout}>
-      <Header/>
-      {children}
-    </div>
+      <div className={layoutStyle.diaryLayout}>
+        <Header/>
+        {children}
+      </div>
   );
 }

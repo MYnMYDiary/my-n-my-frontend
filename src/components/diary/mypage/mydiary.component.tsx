@@ -49,7 +49,11 @@ export default function MyDiary() {
     // pageParam이 없으면(첫 페이지) 초기 URL 사용
     // pageParam이 있으면(다음 페이지) 해당 URL 사용
       const url = pageParam || `/diary/mydiary?category=${selectedCategory}`;
-      const response = await API.post(url, { category: selectedCategory });
+      const response = await API.post(url, { 
+        categoryId: selectedCategory,
+        year: selectedYear,
+        month: selectedMonth
+      });
       return response.data;
     },
     getNextPageParam: (lastPage) => lastPage.next || undefined,
@@ -66,7 +70,7 @@ export default function MyDiary() {
   // 카테고리 변경 시 데이터 리셋을 위한 useEffect
   useEffect(() => {
     refetch();
-  }, [selectedCategory, refetch]);
+  }, [selectedCategory, selectedYear, selectedMonth, refetch]);
 
   console.log(allDiaries);
 
