@@ -11,8 +11,8 @@ const MyPageModalContext = createContext<MyPageModalContextType | undefined>(und
 
 export function MyPageModalProvider({ children }: { children: React.ReactNode }) {
   
-  const [isOpen, setIsOpen] = useState(true);
-  const [selectedDiary, setSelectedDiary] = useState(null);
+  const [isOpen, setIsOpen] = useState<boolean>(false); // 모달 열림 여부
+  const [selectedDiary, setSelectedDiary] = useState<number | null>(null); // 선택된 다이어리
 
   const openModal = (diary: any) => {
     setSelectedDiary(diary);

@@ -1,15 +1,12 @@
 'use client' // 마이페이지같은 경우 SEO가 중요하지 않기 때문에 클라이언트 컴포넌트로 만듬
 
 import { useState } from 'react'
-import dynamic from 'next/dynamic'
-import ProfileContent from '@/components/diary/mypage/profileContent.component'
 import style from '@styles/css/mypage/mypage.module.css'
-import DetailDiary from '@/components/diary/detailDiary.component'
-import { MyPageModalProvider, useMyPageModal } from '@/components/diary/mypage/contexts/mypageModal.context'
+import MyProfile from '@/components/diary/mypage/myprofile.component'
+import MyContents from '@/components/diary/mypage/mycontents.component'
+import MyDiaryDetail from '@/components/diary/mypage/mydiary-detail.component'
+import { MyPageModalProvider } from '@/components/diary/mypage/contexts/mypageModal.context'
 
-const Profile = dynamic(() => import('@/components/diary/mypage/profile.component'), {
-  ssr: false
-})
 
 export default function Page() {
 
@@ -18,14 +15,16 @@ export default function Page() {
   return (
     <MyPageModalProvider>
       <div className={style.frame}>
-        {/* 왼쪽 콘텐츠 */}
-        <Profile setActiveTab={setActiveTab} />
-        {/* 오른쪽 콘텐츠 */}
-        <ProfileContent activeTab={activeTab} />
 
-        
+        {/* 왼쪽 콘텐츠 */}
+        <MyProfile setActiveTab={setActiveTab} />
+
+        {/* 오른쪽 콘텐츠 */}
+        <MyContents activeTab={activeTab} />
+
         {/* 다이어리 상세보기 모달창 */}
-        <DetailDiary/>
+        <MyDiaryDetail/>
+        
       </div>
     </MyPageModalProvider>
   )

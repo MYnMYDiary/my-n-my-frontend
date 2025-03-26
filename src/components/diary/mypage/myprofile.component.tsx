@@ -9,7 +9,7 @@ const user = {
     createdAt: '2025-02-04 19:57:08'
 }
 
-export default function Profile({setActiveTab}: {setActiveTab: (tab: 'follower' | 'following' | 'diary') => void}) {
+export default function MyProfile({setActiveTab}: {setActiveTab: (tab: 'follower' | 'following' | 'diary') => void}) {
   return (
     <div className={style.profileBox}>
 
