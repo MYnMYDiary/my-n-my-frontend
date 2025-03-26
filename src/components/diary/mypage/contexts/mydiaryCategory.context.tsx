@@ -22,7 +22,14 @@ export function MyDiaryCategoryProvider({ children }: { children: React.ReactNod
   const [selectedMonth, setSelectedMonth] = useState<string>(currentmonth);
 
   return (
-    <MyDiaryCategoryContext.Provider value={{ selectedCategory, setSelectedCategory, selectedMonth, setSelectedMonth, selectedYear, setSelectedYear }}>
+    <MyDiaryCategoryContext.Provider value={{ 
+      selectedCategory, 
+      setSelectedCategory, 
+      selectedMonth, 
+      setSelectedMonth, 
+      selectedYear, 
+      setSelectedYear 
+    }}>
       {children}
     </MyDiaryCategoryContext.Provider>
   );

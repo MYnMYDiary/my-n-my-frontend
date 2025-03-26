@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic'
 import ProfileContent from '@/components/diary/mypage/profileContent.component'
 import style from '@styles/css/mypage/mypage.module.css'
 import DetailDiary from '@/components/diary/detailDiary.component'
-import { MyPageModalProvider } from '@/components/diary/mypage/contexts/mypageModal.context'
+import { MyPageModalProvider, useMyPageModal } from '@/components/diary/mypage/contexts/mypageModal.context'
 
 const Profile = dynamic(() => import('@/components/diary/mypage/profile.component'), {
   ssr: false
@@ -18,9 +18,13 @@ export default function Page() {
   return (
     <MyPageModalProvider>
       <div className={style.frame}>
+        {/* 왼쪽 콘텐츠 */}
         <Profile setActiveTab={setActiveTab} />
+        {/* 오른쪽 콘텐츠 */}
         <ProfileContent activeTab={activeTab} />
 
+        
+        {/* 다이어리 상세보기 모달창 */}
         <DetailDiary/>
       </div>
     </MyPageModalProvider>
