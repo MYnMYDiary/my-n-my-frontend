@@ -12,7 +12,7 @@ import { useInView } from 'react-intersection-observer'
 import axios from 'axios'
 import API from '@/api/interceptor/API'
 import { useInfiniteQuery } from '@tanstack/react-query'
-import MyDiaryHeader from './mydiaryHeader.component'
+import MyDiaryHeader from './mydiary-header.component'
 import { useMyDiaryCategory } from './contexts/mydiaryCategory.context'
 
 
@@ -32,7 +32,6 @@ export default function MyDiary() {
 
   const { selectedCategory } = useMyDiaryCategory(); // 카테고리 선택
   const { selectedYear, selectedMonth } = useMyDiaryCategory(); // 연도, 월 선택
-
   const { ref, inView } = useInView(); //무한 스크롤 처리
 
   const { data: 
@@ -72,8 +71,13 @@ export default function MyDiary() {
     refetch();
   }, [selectedCategory, selectedYear, selectedMonth, refetch]);
 
-  console.log(allDiaries);
 
+
+  // 로그 확인
+  console.log('선택한 카테고리: ',selectedCategory);
+  console.log('선택한 연도: ',selectedYear);
+  console.log('선택한 월: ',selectedMonth);
+  console.log('모든 다이어리: ', allDiaries?.pages[0].data);
 
   return (
     <div className={style.diaryFrame}>
