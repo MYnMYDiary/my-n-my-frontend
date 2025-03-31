@@ -14,17 +14,19 @@ import API from '@/api/interceptor/API'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import MyDiaryHeader from './mydiary-header.component'
 import { useMyDiaryCategory } from './contexts/mydiaryCategory.context'
+import { DiaryType } from '@/interfaces/diary/list-diary.interface'
 
+/**
+ * 다이어리 타입
+ * @property space - 공간 이름
+ * @property category - 카테고리 이름
+ * @property id - 다이어리 아이디
+ * @property title - 다이어리 제목
+ * @property likecount - 좋아요 수
+ * @property diary_image - 다이어리 이미지
+ * @property createdat - 다이어리 생성일
+ */
 
-export interface DiaryType{
-  space: string,
-  category: string,
-  id: number,
-  title: string,
-  likecount: number,
-  diary_image: string,
-  createdat: string
-}
 
 
 
@@ -116,11 +118,7 @@ export default function MyDiary() {
                     <DailyDiaryCard
                       ref={rowIndex === rows.length - 1 && index === row.length - 1 ? ref : undefined}
                       key={diary.id}
-                      diaryId={diary.id}
-                      image={diary.diary_image}
-                      title={diary.title}
-                      date={diary.createdat}
-                      likeCount={diary.likecount}
+                      diary={diary}
                     />
                   ))}
                 </div>

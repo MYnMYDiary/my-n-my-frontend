@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react'
 import style from '@/styles/css/diary/createDiary.module.css'
 import Cropper from 'react-easy-crop';
 import { useImageCrop } from '@/hooks/image/useImageCrop';
-import DiaryImage from '@/components/diary/createDiary/DiaryImage';
 import { useRouter } from 'next/navigation';
 import { createFormData } from '@/utils/createFormData';
 import { v4 as uuid} from 'uuid'
@@ -12,6 +11,7 @@ import { useUploadDiary, useUploadDiaryImage } from '@/api/queries/diary/createD
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs, { Dayjs } from 'dayjs';
+import CreateDiaryImage from '@/components/diary/createDiary/createDiaryImage.component';
 
 // API로 가져오기(추후 수정)
 const category = [
@@ -25,12 +25,13 @@ export default function CreateDiary() {
 
     const router = useRouter();
 
-    const [selectedCategory, setSelectedCategory] = useState<string>('001');
-    const [year, setYear] = useState<string>(dayjs().year().toString());
-    const [month, setMonth] = useState<string>((dayjs().month()+1).toString());
-    const [title, setTitle] = useState('');
-    const [content, setContent] = useState('');
-    const [croppedImg, setCroppedImg] = useState<string>('');
+    const [year, setYear] = useState<string>(dayjs().year().toString()); //연도
+    const [month, setMonth] = useState<string>((dayjs().month()+1).toString()); //월
+    const [selectedCategory, setSelectedCategory] = useState<string>('001'); //카테고리
+    const [direction, setDirection] = useState<string>('row'); //이미지 방향
+    const [title, setTitle] = useState(''); //제목
+    const [content, setContent] = useState(''); //설명
+    const [croppedImg, setCroppedImg] = useState<string>(''); //크롭된 이미지
 
     // 연도 선택
     const handleYearChange = (e: Dayjs | null) => {
@@ -58,15 +59,11 @@ export default function CreateDiary() {
   
     // 이미지 비율
     const imageAspect = () => {
-      switch (selectedCategory) {
-        case '001': // 월간
-          return 16/9;
-        case '002': // 주간
-          return 6/4;
-        case '003': // 일간
-          return 5/7;
-        case '004': // 필사
-          return 3/4
+      switch (direction) {
+        case 'row': // 월간
+          return 4/3;
+        case 'col': // 주간
+          return 3/4;
         default:
           return;
       }
@@ -141,12 +138,15 @@ export default function CreateDiary() {
       }
   };
 
+  console.log(direction);
+  console.log(imageAspect());
+
   return (
     <div className={style.frame}>
 
         <div className={style.left}>
-              <DiaryImage
-                selectedCategory={selectedCategory}
+              <CreateDiaryImage
+                direction={direction}
                 croppedImage={croppedImg}
                 fileInputRef={crop.fileInputRef}
                 handlers={{
@@ -157,8 +157,7 @@ export default function CreateDiary() {
         </div>
 
         {/* 크롭 UI */}
-        {
-          crop.isCropping && (
+        {crop.isCropping && (
             <div className={style.cropContainer}>
             <Cropper
               image={crop.imageUrl}
@@ -171,11 +170,11 @@ export default function CreateDiary() {
             />
             <button className={style.cropSaveBtn} onClick={handleSeletImage}>확인</button>
           </div>
-          )
-        }
+        )}
 
         <div className={style.right}>
 
+          {/* 년월 선택 */}
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <div className={style.datePicker}>
                 <DatePicker label={'연도'} views={['year']}
@@ -202,9 +201,21 @@ export default function CreateDiary() {
           </LocalizationProvider>
 
           <div className={style.option}>
+          {/* 카테고리 선택 */}
             <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
               { category.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
             </select>
+
+            <div className={style.direction}>
+              <label>
+                <input type='radio' name='direction' value='row' checked={direction === 'row'} onChange={(e) => setDirection(e.target.value)}/>
+                <span>4:3 (가로)</span>
+              </label>
+              <label>
+                <input type='radio' name='direction' value='col' checked={direction === 'col'} onChange={(e) => setDirection(e.target.value)}/>
+                <span>3:4 (세로)</span>
+              </label>
+            </div>
     
             <input type='text' placeholder='제목' onChange={(e) => setTitle(e.target.value)}/>
 
