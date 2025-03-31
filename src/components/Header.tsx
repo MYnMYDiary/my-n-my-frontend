@@ -4,7 +4,7 @@ import { Space } from '@/constants/name.const';
 import { setSpace } from '@/features/spaceSlice';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux/hooks';
 import styles from '@styles/css/header.module.css';
-import { useRouter } from 'next/navigation';  // ✅ Next.js 13 이상에서 올바른 import
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';  // ✅ Next.js 13 이상에서 올바른 import
 import { IoSearchOutline } from 'react-icons/io5';
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/hooks/auth/useAuth';
@@ -12,13 +12,18 @@ import { logout } from '@/api/apis/user/login.api';
 import WriteDiaryButton from '@styles/styled-components/buttons/writeDiary.button';
 
 
+
 const space = [
-    { id: 0, name: Space.COMMUNITY },
-    { id: 1, name: Space.SHOPPING },
-    { id: 2, name: Space.ARTIST },
+    { id: 'D', name: Space.COMMUNITY, url: 'diary' },
+    { id: 'S', name: Space.SHOPPING, url: 'shopping' },
+    { id: 'A', name: Space.ARTIST, url: 'artist' },
 ];
 
 export default function Header() {
+
+    const pathname = usePathname();
+    const spaceName = pathname.split('/')[1] || '';
+
     // 페이지 이동
     const router = useRouter();
 
@@ -32,8 +37,6 @@ export default function Header() {
     //let isLogin = useAuth();
     console.log("로그인 상태: ", isLogin)
 
-    const dispatch = useAppDispatch();
-    const spaceName = useAppSelector((state) => state.space.spaceName);
 
     const handleLogout = async () => {
         logout(); //토큰 모두 삭제
@@ -46,10 +49,9 @@ export default function Header() {
 
             <div className={styles.main_category}>
                 {space.map((s) => (
-                    <h3 
-                        className={spaceName === s.name ? styles.selected : ''} 
-                        key={s.id}
-                        onClick={() => dispatch(setSpace(s.name))}
+                    <h3 key={s.id}
+                        className={spaceName === s.url ? styles.selected : ''} 
+                        onClick={() => router.push(`/${s.url}`)}
                     >
                         {s.name}
                     </h3>
