@@ -5,9 +5,9 @@ import API from "@/api/interceptor/API";
  * @param diaryId 
  * @returns 
  */
-export const getMyDiaryById = async (diaryId: number) => {
+export const getMyDiaryById = async (diaryId: number, categoryId: string, year: string, month: string) => {
     try {
-        const { data } = await API.get(`/diary/mydiary/${diaryId}`);
+        const { data } = await API.post(`/diary/mydiary/${diaryId}`,{categoryId, year, month});
         return data;
     } catch (error) {
         console.error('다이어리 조회 실패:', error);
