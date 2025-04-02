@@ -45,8 +45,8 @@ export function useUploadDiary() {
         },  
     })
 
-    const uploadDiary = ({categoryId, year, month, title, content, image}:PostDiaryType) => {
-        mutation.mutate({categoryId, year, month, title, content, image});
+    const uploadDiary = ({categoryId, year, month, title, content, image, tags}:PostDiaryType) => {
+        mutation.mutate({categoryId, year, month, title, content, image, tags});
     };
 
     return {

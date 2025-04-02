@@ -2,6 +2,7 @@
     width: 100%;
     height: fit-content;
     display: flex;
+    font-family: 'S-CoreDream-3Light';
 }
 
 .frame .left{
@@ -173,3 +174,117 @@
     width: 16px;           /* 크기 조절 (선택사항) */
     height: 16px;          /* 크기 조절 (선택사항) */
 }
+
+/* 태그 */
+
+.tagBox{
+    width: 450px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin: 35px 0px;
+}
+
+.tagBox p{
+    font-size: 14px;
+    color: #f26689;
+}
+
+.addTagBox{
+    width: 450px;
+}
+
+.searchTagBox{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.searchTagBox input{
+    width: 100%;
+    height: 35px;
+    border: 1px solid pink;
+    border-radius: 8px;
+    padding: 0px 10px;
+    margin: 5px 0px;
+}
+
+.searchTagBox svg{
+    cursor: pointer;
+    width: 25px ;
+    height: 25px;
+    color: #f26689;
+}
+
+.tagListBox{
+    width: 100%;
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 0px 10px;
+}
+
+.searchTagList{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 5px;
+    overflow-y: scroll;
+}
+
+.seletedTagList{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap
+}
+
+.selectedTag{
+    font-size: 13px !important;
+    background-color: #ebebeb;
+    color: #2d2d2d !important;
+    cursor: pointer;
+    padding: 4px 5px;
+    box-sizing: border-box;
+    border-radius: 4px;
+}
+
+.tag{
+    font-size: 14px;
+    font-family: 'S-CoreDream-3Light';
+    color: #9d9d9d;   
+    cursor: pointer;
+}
+
+.tag:hover{
+    color: #f26689;
+}
+
+.tagMessageBox{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.tagMessage{
+    font-size: 14px;
+    color: #9d9d9d;
+}
+
+.addTagText{
+    font-size: 14px;
+    font-weight: 600;
+    color: #f26689;
+    cursor: pointer;
+}
+

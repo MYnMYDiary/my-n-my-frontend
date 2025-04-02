@@ -1,6 +1,7 @@
 'use client';
 
 import { getCroppedImg } from "@/utils/cropUtils";
+import imageCompression from "browser-image-compression";
 import heic2any from "heic2any";
 import { useState, useCallback, useRef } from "react";
 
@@ -34,7 +35,8 @@ export const useImageCrop = () => {
    * 2. 파일 선택에서 이미지를 선택했을 때 일어나는 함수
    */
   const selectedImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
+
+    const file = e.target.files?.[0]; // 선택된 파일
 
     if (file) {
       try {
@@ -52,6 +54,18 @@ export const useImageCrop = () => {
           e.target.value = '';
           return;
         }
+
+          // 파일 크기 체크 (2.3MB = 2.3 * 1024 * 1024 bytes)
+          const maxSize = 2.3 * 1024 * 1024;
+          if (processedFile.size > maxSize) {
+              processedFile = await compressImage(processedFile);
+              
+              if (processedFile.size > maxSize) {
+                  alert('파일 크기가 2.3MB를 초과합니다. 더 작은 이미지를 선택해주세요.');
+                  e.target.value = '';
+                  return;
+              }
+          }
 
         const imageUrl = URL.createObjectURL(processedFile);
         setImageUrl(imageUrl);
@@ -119,6 +133,27 @@ export const useImageCrop = () => {
         throw new Error('HEIC 이미지 변환에 실패했습니다.');
       }
     };
+
+    /**
+     * 이미지 압축하는 함수
+     * @param file - 압축할 이미지 파일
+     * @returns 압축된 이미지 파일
+     */
+    const compressImage = async (file: File) => {
+      const options = {
+          maxSizeMB: 2.3,         // 2.3MB 제한
+          maxWidthOrHeight: 1920,
+          useWebWorker: true,
+          initialQuality: 0.7,
+      };
+  
+      try {
+          return await imageCompression(file, options);
+      } catch (error) {
+          console.error('이미지 압축 실패:', error);
+          throw error;
+      }
+  };
 
   return {
       imageUrl,
