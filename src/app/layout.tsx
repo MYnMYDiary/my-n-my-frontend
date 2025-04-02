@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   title: "다이어리 꾸밀 때, 마이앤마이",
   description: "다이어리 꾸미기",
   icons: { icon: "/favicon.ico" },
+  other: {
+    preload: [] // 자동 preload 비활성화
+  }
 };
 
 

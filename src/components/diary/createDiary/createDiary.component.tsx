@@ -12,6 +12,7 @@ import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs, { Dayjs } from 'dayjs';
 import CreateDiaryImage from '@/components/diary/createDiary/createDiaryImage.component';
+import CreateTags from './createTags.component';
 
 // API로 가져오기(추후 수정)
 const category = [
@@ -27,11 +28,12 @@ export default function CreateDiary() {
 
     const [year, setYear] = useState<string>(dayjs().year().toString()); //연도
     const [month, setMonth] = useState<string>((dayjs().month()+1).toString()); //월
-    const [selectedCategory, setSelectedCategory] = useState<string>('001'); //카테고리
+    const [selectedCategory, setSelectedCategory] = useState<string>('003'); //카테고리
     const [direction, setDirection] = useState<string>('row'); //이미지 방향
     const [title, setTitle] = useState(''); //제목
     const [content, setContent] = useState(''); //설명
     const [croppedImg, setCroppedImg] = useState<string>(''); //크롭된 이미지
+    const [tags, setTags] = useState<string[]>([]); //태그  
 
     // 연도 선택
     const handleYearChange = (e: Dayjs | null) => {
@@ -47,13 +49,13 @@ export default function CreateDiary() {
       }
     }
 
-    // 이미지 자르기
+    // 1. 이미지 자르기
     const crop = useImageCrop();
 
-    //이미지 업로드
+    // 2. 이미지 업로드
     const {image, uploadImage} = useUploadDiaryImage();
 
-    //다이어리 업로드
+    // 3. 다이어리 업로드
     const {isSuccess, uploadDiary} = useUploadDiary();
   
   
@@ -70,7 +72,7 @@ export default function CreateDiary() {
     };
   
     /**
-     * 이미지를 선택해서 크롭한 뒤 선택하는 버튼을 클릭하면 발생하는 이벤트
+     * 이미지를 선택해서 크롭한 뒤 확인 버튼을 클릭하면 발생하는 이벤트
      */
     const handleSeletImage = async () => {
       const cropped = await crop.handleCropConfirm(crop.imageUrl);
@@ -95,6 +97,11 @@ export default function CreateDiary() {
         }
       })();
     }, [croppedImg]); // 🔥 croppedImg가 변경될 때 실행
+
+      // 태그 삭제
+      const handleDeleteTag = (tag: string) => {
+        setTags(tags.filter(t => t !== tag));
+      }
 
     // 다이어리 저장전 검증
     const checkDiary = (title: string, content: string, image: string) => {
@@ -131,29 +138,34 @@ export default function CreateDiary() {
             month: month,
             title: diary.title,
             content: diary.content,
-            image: diary.image
+            image: diary.image,
+            tags: tags
           });
-          router.push('/mypage');
+          router.replace('/mypage');
         } catch (error) {console.log(error);}
       }
   };
 
-  console.log(direction);
-  console.log(imageAspect());
+
+
+  // console.log(direction);
+  // console.log(imageAspect());
+  //console.log(tags);
 
   return (
     <div className={style.frame}>
 
         <div className={style.left}>
-              <CreateDiaryImage
-                direction={direction}
-                croppedImage={croppedImg}
-                fileInputRef={crop.fileInputRef}
-                handlers={{
-                  selectFile: crop.selectFile,
-                  setIsCropping: crop.setIsCropping,
-                  selectedImage: crop.selectedImage,                 
-              }}/>
+            {/* 이미지 선택 */}
+            <CreateDiaryImage
+              direction={direction}
+              croppedImage={croppedImg}
+              fileInputRef={crop.fileInputRef}
+              handlers={{
+                selectFile: crop.selectFile,
+                setIsCropping: crop.setIsCropping,
+                selectedImage: crop.selectedImage,                 
+            }}/>
         </div>
 
         {/* 크롭 UI */}
@@ -201,11 +213,12 @@ export default function CreateDiary() {
           </LocalizationProvider>
 
           <div className={style.option}>
-          {/* 카테고리 선택 */}
+            {/* 카테고리 선택 */}
             <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
               { category.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
             </select>
 
+            {/* 이미지 방향 선택 */}
             <div className={style.direction}>
               <label>
                 <input type='radio' name='direction' value='row' checked={direction === 'row'} onChange={(e) => setDirection(e.target.value)}/>
@@ -218,10 +231,21 @@ export default function CreateDiary() {
             </div>
     
             <input type='text' placeholder='제목' onChange={(e) => setTitle(e.target.value)}/>
-
             <textarea placeholder='설명'onChange={(e) => setContent(e.target.value)}/>
           </div>
 
+
+          {/* 태그 선택 */}
+          <div className={style.tagBox}>
+            <p>#Tag</p>
+            <div className={style.seletedTagList}>
+              {tags.map((tag, i) => (
+                <p key={i} className={style.selectedTag} onClick={() => handleDeleteTag(tag)}>{`# ${tag}`}</p>
+              ))}
+            </div>
+          </div>
+
+          <CreateTags tags={tags} setTags={setTags}/>
 
           <button type='button' className={style.saveBtn} onClick={handleUploadDiary}>저장</button>
 
