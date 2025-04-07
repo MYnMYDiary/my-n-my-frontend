@@ -6,6 +6,6 @@ export function useGetMyDiary (diaryId: number, category: string, year: string, 
       queryKey: ["mydiary", diaryId, category, year, month],
       queryFn: () => getMyDiaryById(diaryId, category, year, month),
       staleTime: 1000 * 60 * 5, // 5분 캐싱
-      enabled: !!diaryId,
+      enabled: !!diaryId, // diaryId가 있을 때만 쿼리 실행
     });
 };

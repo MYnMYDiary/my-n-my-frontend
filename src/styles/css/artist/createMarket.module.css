@@ -1,0 +1,6 @@
+.frame{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    font-family: 'S-CoreDream-3Light';
+}
