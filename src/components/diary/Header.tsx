@@ -11,7 +11,8 @@ export default function Header() {
 
     const title = [
         {id: 'createDiary', name: '다이어리 쓰기'},
-        {id: 'mypage', name: '마이페이지'}
+        {id: 'mypage', name: '마이페이지'},
+        {id: 'createMarket', name: '마켓 만들기'}
     ]
 
     return (

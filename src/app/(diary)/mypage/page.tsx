@@ -7,10 +7,16 @@ import MyContents from '@/components/diary/mypage/mycontents.component'
 import MyDiaryDetail from '@/components/diary/mypage/mydiary-detail.component'
 import { MyPageModalProvider } from '@/components/diary/mypage/contexts/mypageModal.context'
 
+ export enum TabType {
+  FOLLOWER = 'follower',
+  FOLLOWING = 'following',
+  DIARY = 'diary',
+  EDIT = 'editUserInfo'
+}
 
 export default function Page() {
 
-  const [activeTab, setActiveTab] = useState<'follower' | 'following' | 'diary'>('diary')
+  const [activeTab, setActiveTab] = useState<TabType>(TabType.DIARY)
 
   return (
     <MyPageModalProvider>

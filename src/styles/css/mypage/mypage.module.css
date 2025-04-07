@@ -1,3 +1,8 @@
+/* 코드 한줄로 만들기 단축키 ^ + J */
+/* 코드 닫고 열기 option + cmd + [ or ] */
+/* 코드 모두 닫기 option + cmd + [ + 0 */
+/* 코드 모두 열기 option + cmd + ] + 0 */
+
 .frame{ 
     width: 100%; 
     padding: 50px 10px; 
@@ -157,4 +162,26 @@
     justify-content: flex-start;
     gap: 20px;
     margin-bottom: 20px;
+}
+
+.menuBox{
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 30px 0px;
+    gap: 20px;
+}
+
+.menuBox p{
+    font-size: 17px;
+    font-weight: bold;
+    color: #5f5e5e;
+    cursor: pointer;
+    padding-bottom: 2px;
+}
+
+.menuBox p:hover{
+    color: #f26689;
+    border-bottom: 1px solid #f26689;
 }

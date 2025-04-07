@@ -36,6 +36,11 @@ export const useImageCrop = () => {
    */
   const selectedImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
 
+    if (!e.target.files || e.target.files.length === 0) {
+      console.log('이미지 선택 에러');
+      return;
+    }
+
     const file = e.target.files?.[0]; // 선택된 파일
 
     if (file) {

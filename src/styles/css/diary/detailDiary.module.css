@@ -104,6 +104,7 @@
     align-items: center;
     gap: 5px;
     justify-content: flex-end;
+    margin-top: 20px;
 }
 
 .likeCount svg{

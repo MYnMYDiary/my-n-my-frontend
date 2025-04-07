@@ -1,6 +1,7 @@
 .mainLayout{
     display: flex;
     flex-direction: column;
+    align-items: center;
     min-width: 1450px;
     width: 85vw;
     height: 100vh;
@@ -21,6 +22,18 @@
 .diaryLayout{
     display: flex;
     flex-direction: column;
+    min-width: 1500px;
+    max-width: 1500px;
+    height: 100%;
+    background-color: var(--background-diary);
+    color: var(--foreground-diary);
+    margin: 25px 70px;
+}
+
+.marketLayout{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     min-width: 1500px;
     max-width: 1500px;
     height: 100%;
