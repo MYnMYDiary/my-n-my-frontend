@@ -3,6 +3,7 @@
 import style from '@styles/css/artist/market.module.css'
 import { useState } from 'react'
 import MarketProductCard from './createMarket/marketProductCard.component'
+import { MarketData } from '@/app/(main)/artist/market/page'
 const categories = [
     {id: '001',name: '소개'},
     {id: '002',name: '안내사항'},
@@ -68,26 +69,14 @@ const productMockData = [
     
 ]
 
-export default function Market() {
+export default function Market({marketData}: {marketData: MarketData}) {
+
     const [selectedCategory, setSelectedCategory] = useState<string>('001')
-    const [showFullIntro, setShowFullIntro] = useState(false);
-    const [showFullGuide, setShowFullGuide] = useState(false);
 
-    // 소개글 줄바꿈 처리
-    const marketIntroLines = marketInfo.intro.split('\n');
-    const hasMoreIntroLines = marketIntroLines.length > 5;
-    const displayedIntroLines = showFullIntro 
-        ? marketIntroLines 
-        : marketIntroLines.slice(0, 5);
 
-    // 안내사항 줄바꿈 처리
-    const marketGuideLines = marketInfo.guide.split(/\n(.+)/).filter(line => line);;
-    const hasMoreGuideLines = marketGuideLines.length > 5;
-    const displayedGuideLines = showFullGuide 
-        ? marketGuideLines 
-        : marketGuideLines.slice(0, 5);
 
-    // 4개씩 그룹화된 배열로 변환
+
+    // 상품 : 4개씩 그룹화된 배열로 변환
     const cardRows = [];
     for (let i = 0; i < productMockData.length; i += 4) {
         cardRows.push(productMockData.slice(i, i + 4));
@@ -114,34 +103,16 @@ export default function Market() {
 
                 <div className={style.marketInfoContentBox}>
                     {selectedCategory === '001' && 
-                        <div className={style.marketIntroBox}>
-                            {displayedIntroLines.map((line, index) => (
-                                <p key={index} className={style.introLine}>{line}</p>
-                            ))}
-                            {hasMoreIntroLines && (
-                                <button 
-                                    className={style.moreButton}
-                                    onClick={() => setShowFullIntro(!showFullIntro)}
-                                >
-                                    {showFullIntro ? '접기' : '더보기'}
-                                </button>
-                            )}
-                        </div>
+                        <div 
+                            className={style.marketIntroBox} 
+                            dangerouslySetInnerHTML={{ __html: marketData?.introduction || '' }} 
+                        />
                     }
                     {selectedCategory === '002' && 
-                        <div className={style.marketGuideBox}>
-                            {displayedGuideLines.map((line, index) => (
-                                <p key={index} className={style.introLine}>{line}</p>
-                            ))}
-                            {hasMoreGuideLines && (
-                                <button 
-                                    className={style.moreButton}
-                                    onClick={() => setShowFullGuide(!showFullGuide)}
-                                >
-                                    {showFullGuide ? '접기' : '더보기'}
-                                </button>
-                            )}
-                        </div>
+                        <div 
+                            className={style.marketGuideBox} 
+                            dangerouslySetInnerHTML={{ __html: marketData?.notice || '' }} 
+                        />
                     }
                 </div>
 

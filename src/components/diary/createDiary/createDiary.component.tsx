@@ -13,6 +13,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs, { Dayjs } from 'dayjs';
 import CreateDiaryImage from '@/components/diary/createDiary/createDiaryImage.component';
 import CreateTags from './createTags.component';
+import { CURRENT_YEAR, CURRENT_MONTH } from '@/constants/date.const';
 
 // API로 가져오기(추후 수정)
 const category = [
@@ -26,8 +27,8 @@ export default function CreateDiary() {
 
     const router = useRouter();
 
-    const [year, setYear] = useState<string>(dayjs().year().toString()); //연도
-    const [month, setMonth] = useState<string>((dayjs().month()+1).toString()); //월
+    const [year, setYear] = useState<string>(CURRENT_YEAR); //연도
+    const [month, setMonth] = useState<string>(CURRENT_MONTH); //월
     const [selectedCategory, setSelectedCategory] = useState<string>('003'); //카테고리
     const [direction, setDirection] = useState<string>('row'); //이미지 방향
     const [title, setTitle] = useState(''); //제목

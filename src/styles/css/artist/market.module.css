@@ -4,7 +4,7 @@
     flex-direction: column;
     align-items: center;
     margin: 40px 0px;
-    height: 510px;
+    height: 650px;
 }
 
 
@@ -27,17 +27,23 @@
     align-items: center;
     justify-content: center;
     position: absolute;
-    top: 320px;
+    top: 140%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
-.profileBox h3{
+.profileName{
     font-family: 'Cafe24Ssurround';
-    font-size: 26px;
-    color: #414141;
-    font-weight: 600;
-    margin: 15px 0px;
+    font-size: 21px;
+    color: #828080;
+    margin: 10px 0px;
+}
+
+.profileBox h3{
+    font-family: 'Cafe24SsurroundAir';
+    font-size: 32px;
+    color: #1d1c1c;
+    margin: 20px 0px;
 }
 
 .profileImage{ 
@@ -228,4 +234,24 @@
 .modalFrame p:hover{
     background-color: #f26689;
     color: white;
+}
+
+.marketIntroBox {
+    /* Quill 에디터 스타일 유지 */
+    & :global(p) {
+        margin-bottom: 1em;
+    }
+
+    & :global(ul), & :global(ol) {
+        padding-left: 2em;
+        margin-bottom: 1em;
+    }
+
+    & :global(strong) {
+        font-weight: bold;
+    }
+
+    & :global(em) {
+        font-style: italic;
+    }
 }

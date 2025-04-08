@@ -1,6 +1,171 @@
 .frame{
     width: 100%;
-    height: fit-content;
+    margin: 100px 0px;
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     font-family: 'S-CoreDream-3Light';
+}
+
+.profileImage{
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    border: 1px solid #f26689;
+}
+
+.imageBox{
+    position: relative;
+}
+
+.imageEditButton{
+    position: absolute;
+    top: 75%;
+    right: 0px;
+    border-radius: 50%;
+    background-color: #c3c3c3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 10px;
+    cursor: pointer;
+}
+
+.imageEditButton svg{
+    width: 30px;
+    height: 30px;
+    color: white;
+}   
+
+.textBox{
+    width: 600px;
+    gap: 20px;
+    margin: 20px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'S-CoreDream-3Light';
+}
+
+.textBox input{
+    width: 100%;
+    height: 50px;
+    border: 1px solid #c3c3c3;
+    border-radius: 10px;
+    padding: 10px 10px;
+    font-family: 'S-CoreDream-3Light';
+    font-size: 15px;
+}
+
+.textBox textarea{
+    width: 100%;
+    height: 300px;
+    border: 1px solid #c3c3c3;
+    border-radius: 10px;
+    padding: 10px 10px;
+    font-family: 'S-CoreDream-3Light';
+}
+
+.checkboxBox{
+    width: 600px;   
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    margin: 12px 0px;
+}
+
+.datePicker{
+    width: 600px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 35px;
+    margin: 12px 0px;
+}
+
+.button{
+    width: 180px;
+    height: 40px;
+    font-size: 16px;
+    background-color: #f26689;
+    color: white;
+    font-size: 20px;
+    font-family: Cafe24Ssurround;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.editor {
+    height: 300px;  /* 원하는 높이로 조정 */
+    margin-bottom: 50px;  /* Quill 에디터의 toolbar 공간 확보 */
+}
+
+/* Quill 에디터 컨테이너 스타일 */
+.editor :global(.ql-container) {
+    border-radius: 0 0 8px 8px;
+    border-color: pink;
+}
+
+/* Quill 툴바 스타일 */
+.editor :global(.ql-toolbar) {
+    border-radius: 8px 8px 0 0;
+    border-color: pink;
+}
+
+.quillWrapper {
+    /* 전체 에디터 컨테이너 */
+    width: 100%;
+    height: 400px;
+}
+
+.quillWrapper :global(.quill) {
+    height: 100%;
+}
+
+.quillWrapper :global(.ql-container) {
+    height: calc(100% - 42px); /* toolbar 높이를 뺀 나머지 */
+    font-size: 16px;
+    border-radius: 0 0 8px 8px;
+    border-color: pink;
+}
+
+.quillWrapper :global(.ql-toolbar) {
+    border-radius: 8px 8px 0 0;
+    border-color: pink;
+}
+
+/* 툴바 아이콘 크기 조절 */
+.quillWrapper :global(.ql-toolbar.ql-snow .ql-formats) {
+    margin-right: 12px;
+}
+
+.quillWrapper :global(.ql-snow .ql-toolbar button),
+.quillWrapper :global(.ql-snow .ql-picker) {
+    width: 24px;
+    height: 24px;
+}
+
+/* 툴바 아이콘 내부 SVG 크기 조절 */
+.quillWrapper :global(.ql-snow .ql-toolbar button svg) {
+    width: 16px;
+    height: 16px;
+}
+
+/* 폰트 사이즈 선택기 너비 조절 */
+.quillWrapper :global(.ql-snow .ql-picker.ql-size) {
+    width: 80px;
+}
+
+/* 에디터 내부 여백 */
+.quillWrapper :global(.ql-editor) {
+    padding: 12px 15px;
+    font-family: 'S-CoreDream-3Light';
+    font-size: 15px;
 }

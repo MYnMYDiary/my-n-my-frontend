@@ -4,7 +4,6 @@
     align-items: center;
     min-width: 1450px;
     width: 85vw;
-    height: 100vh;
     background-color: var(--background-diary);
     color: var(--foreground-diary);
     margin: 25px 0px;
