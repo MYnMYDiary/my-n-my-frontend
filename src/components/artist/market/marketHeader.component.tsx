@@ -6,20 +6,13 @@ import { FaPlus } from "react-icons/fa6";
 import { AiOutlineShop } from "react-icons/ai";
 import SettingMenuModal from './settingMarket/settingMenuModal.component';
 import { useState, useRef, useEffect } from 'react';
+import { MyInfo, useGetMyInfo } from '@/api/queries/mypage/getMyInfo.query';
+import { MarketData } from '@/app/(main)/artist/market/page';
 
 
 
+const MarketHeader = ({marketData, user}: {marketData: MarketData, user: MyInfo}) => {
 
-
-const marketMockData = {
-    userRole: 'ARTIST',
-    profileImage: '/mynmyLogo_v2.png',
-    profileName: '연메이드 상시마켓',
-    likeCount: 100,
-    isLiked: false,
-}
-
-export default function MarketHeader() {
 
     const [isSettingMenuOpen, setIsSettingMenuOpen] = useState<boolean>(false);
     const menuRef = useRef<HTMLDivElement>(null);
@@ -44,18 +37,19 @@ export default function MarketHeader() {
             <div className={style.headerImage}>
                 <div className={style.profileBox}>
                     <img src='/mynmyLogo_v2.png' className={style.profileImage} />
-                    <h3>연메이드 상시마켓</h3>
+                    <h3>{marketData.name}</h3>
+                    <p className={style.profileName}>{user?.nickname}</p>
                     <div className={style.likeBox}>
                         <IoMdHeartEmpty size={30} />
-                        <p>100</p>
+                        <p>{marketData.subscribers}</p>
                     </div>
-                    {marketMockData.userRole === 'USER' && (
+                    {user?.role === 'USER' && (
                         <div className={style.plusButton}>
                             <FaPlus />
                             구독하기
                         </div>
                     )}
-                    {marketMockData.userRole === 'ARTIST' && (
+                    {user?.role === 'ARTIST' && (
                         <div ref={menuRef} className={style.marketSettingButton} onClick={() => setIsSettingMenuOpen(!isSettingMenuOpen)}>
                             <AiOutlineShop />
                             마켓관리
@@ -67,3 +61,5 @@ export default function MarketHeader() {
         </div>
     )
 }   
+
+export default MarketHeader;

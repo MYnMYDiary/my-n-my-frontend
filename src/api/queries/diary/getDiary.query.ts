@@ -1,8 +1,7 @@
 'use client'
 
-import { getAllDiarys, getDiaryByUser, getDiaryImage } from "@/api/apis/diary/getDiary.api";
+import { DiaryType, getAllDiarys, getDiaryByUser, getDiaryImage } from "@/api/apis/diary/getDiary.api";
 import API from "@/api/interceptor/API";
-import { DiaryType } from "@/components/diary/mypage/mydiary.component";
 import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 
