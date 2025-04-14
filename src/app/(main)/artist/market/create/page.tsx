@@ -1,14 +1,14 @@
 'use client'
 
-import { useGetMarket } from '@/api/queries/market/getMarket.query';
-import SelectMarketDate from '@/components/artist/market/createMarket/selectMarketDate.component';
+import { useGetMarket } from '@/api/queries/market/get-market.query';
+import SelectMarketDate from '@/components/artist/market/create-market/selectMarketDate.component';
 import { CURRENT_DATE } from '@/constants/date.const';
 import styles from '@/styles/css/artist/createMarket.module.css'
 import { useState, useEffect } from 'react';
 import { Dayjs } from 'dayjs';
 import { RiImageEditLine } from "react-icons/ri";
 import dayjs from 'dayjs';
-import { useCreateMarket } from '@/api/queries/market/createMarket.query';
+import { useCreateMarket } from '@/api/queries/market/create-market.query';
 import dynamic from 'next/dynamic';
 import 'react-quill/dist/quill.snow.css';
 

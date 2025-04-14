@@ -15,6 +15,17 @@ export default function MyProfile({setActiveTab}: {setActiveTab: (tab: TabType) 
     const router = useRouter();
     const {data: user} = useGetMyInfo();
 
+    const handleMarketClick = () => {
+        //마켓이 존재하면
+        if(user?.market) {
+            router.push(`/artist/market/${user.market}`);
+        }
+
+        if(!user?.market === null) {
+            router.push('/artist/market/welcome');
+        }
+    }
+
 
 
     console.log(user);
@@ -47,7 +58,7 @@ export default function MyProfile({setActiveTab}: {setActiveTab: (tab: TabType) 
             <WriteDiaryButton text='다이어리 쓰기' w={250} />
 
             <div className={style.menuBox}>
-                {user.role === 'ARTIST' && <p onClick={() => router.push('/artist/market')}>마켓</p>}
+                {user.role === 'ARTIST'&& <p onClick={handleMarketClick}>마켓</p>}
                 <p>개인정보수정</p>
                 <p>주문내역</p>      
                 <p>장바구니</p>

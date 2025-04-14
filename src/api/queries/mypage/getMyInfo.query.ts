@@ -9,6 +9,7 @@ export interface MyInfo {
     profileimage: string;
     role: string;
     updatedat: string;
+    market?: number;
 }
 
 export const useGetMyInfo = () => {
