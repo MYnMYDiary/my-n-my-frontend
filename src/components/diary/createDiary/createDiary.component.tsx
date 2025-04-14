@@ -86,12 +86,13 @@ export default function CreateDiary() {
     useEffect(() => {
       if (!croppedImg) return;
 
+      // 이미지 Blob URL을 File로 변환 후 FormData 생성을 비동기로 즉시 실행
       (async () => {
         const formData = await createFormData({
           blobUrl: croppedImg,
           fileName: `${uuid()}.jpg`,
           fieldName: 'image'
-        });
+      });
 
         if (formData) {
           uploadImage(formData);

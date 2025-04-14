@@ -7,15 +7,13 @@ import { AiOutlineShop } from "react-icons/ai";
 import SettingMenuModal from './settingMarket/settingMenuModal.component';
 import { useState, useRef, useEffect } from 'react';
 import { MyInfo, useGetMyInfo } from '@/api/queries/mypage/getMyInfo.query';
-import { MarketData } from '@/app/(main)/artist/market/page';
+import { MarketData } from '@/app/(main)/artist/market/[id]/page';
 
-
-
-const MarketHeader = ({marketData, user}: {marketData: MarketData, user: MyInfo}) => {
-
+const MarketHeader = ({market}: {market: MarketData}) => {
 
     const [isSettingMenuOpen, setIsSettingMenuOpen] = useState<boolean>(false);
     const menuRef = useRef<HTMLDivElement>(null);
+    const {data: user} = useGetMyInfo();
 
     // 메뉴 바깥 클릭 시 메뉴 닫기
     useEffect(() => {
@@ -31,25 +29,28 @@ const MarketHeader = ({marketData, user}: {marketData: MarketData, user: MyInfo}
         };
     }, []);
 
+    // console.log('마켓정보',market);
+    // console.log('유저정보',user);
+
     return (
         <div className={style.headerFrame}>
 
             <div className={style.headerImage}>
                 <div className={style.profileBox}>
                     <img src='/mynmyLogo_v2.png' className={style.profileImage} />
-                    <h3>{marketData.name}</h3>
+                    <h3>{market.name}</h3>
                     <p className={style.profileName}>{user?.nickname}</p>
                     <div className={style.likeBox}>
                         <IoMdHeartEmpty size={30} />
-                        <p>{marketData.subscribers}</p>
+                        <p>{market.subscribers}</p>
                     </div>
-                    {user?.role === 'USER' && (
+                    {market?.userId !== user?.id && (
                         <div className={style.plusButton}>
                             <FaPlus />
                             구독하기
                         </div>
                     )}
-                    {user?.role === 'ARTIST' && (
+                    {market?.userId === user?.id && (
                         <div ref={menuRef} className={style.marketSettingButton} onClick={() => setIsSettingMenuOpen(!isSettingMenuOpen)}>
                             <AiOutlineShop />
                             마켓관리
