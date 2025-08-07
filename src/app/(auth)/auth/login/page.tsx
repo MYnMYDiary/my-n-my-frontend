@@ -21,7 +21,9 @@ export default function LoginPage() {
             <div className={style.socialLogin}>
                 <img src='/btn_naver.svg'/>
                 <img src='/btn_kakao.svg'/>
-                <img src='/btn_google.svg'/>
+                <a href="http://localhost:8081/oauth2/authorization/google">
+                    <img src='/btn_google.svg'/>
+                </a>
             </div>
         </div>
     )
