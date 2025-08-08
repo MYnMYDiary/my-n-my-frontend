@@ -8,12 +8,22 @@ export default function GoogleCallbackPage() {
 
     useEffect(() => {
         const url = new URL(window.location.href)
-        const token = url.searchParams.get('token')
+        const accessToken = url.searchParams.get('token')
 
-        if (token) {
-            localStorage.setItem('accessToken', token)
-            // 또는 쿠키에 저장하거나 상태관리로 전달
-            router.push('/') // 메인 페이지로 이동
+        if (accessToken) {
+            localStorage.setItem('accessToken', accessToken)
+
+            // refreshToken 저장
+            fetch('http://localhost:8081/auth/set-refresh', {
+                method: 'POST',
+                credentials: 'include', // 쿠키 받아오게 설정
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            }).then(() => {
+                router.push('/');
+            })
+
         } else {
             alert('로그인 실패: 토큰 없음')
         }
