@@ -35,18 +35,38 @@ export async function loginWithEmail(body: { user: { email: string; password: st
  * 라우트 핸들러
  * @returns Promise<boolean>
  */
+// export const logout = async (): Promise<boolean> => {
+//     try {
+//         const res = await fetch('http://localhost:8081/auth/logout');
+//
+//         if (!res.ok) {
+//             throw new Error("로그아웃 요청 실패");
+//         }
+//
+//         const data = await res.json();
+//         localStorage.clear();
+//
+//         return Boolean(data.isLogin);
+//     } catch (error) {
+//         console.error("로그아웃 에러:", error);
+//         return false;
+//     }
+// };
+
 export const logout = async (): Promise<boolean> => {
-    try {        
-        const res = await fetch('/api/auth/logout');
+    try {
+        const res = await fetch('http://localhost:8081/auth/logout', {
+            method: 'POST',
+            credentials: 'include', // 🔥 refreshToken 쿠키 전송을 위해 꼭 필요!
+        });
 
         if (!res.ok) {
             throw new Error("로그아웃 요청 실패");
         }
 
-        const data = await res.json();
-        localStorage.clear();
+        localStorage.clear(); // accessToken 등 제거
 
-        return Boolean(data.isLogin);
+        return true;
     } catch (error) {
         console.error("로그아웃 에러:", error);
         return false;
